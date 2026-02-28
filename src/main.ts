@@ -11,7 +11,6 @@ import "./plugins";
 import "./registerServiceWorker";
 
 import App from "./App.vue";
-
 // Enable compatibilty mode for array updates for @duet3d/objectmodel library
 (window as any)._duetModelSetArray = (array: object, index: string | number, value: any) => Vue.set(array, index, value);
 
