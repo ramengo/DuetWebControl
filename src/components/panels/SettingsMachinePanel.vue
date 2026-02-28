@@ -15,7 +15,7 @@
 				</v-col>
 				<v-col cols="12" lg="6">
 					<v-text-field v-model.number="moveFeedrate" type="number" step="any" min="0.001"
-								  :label="$t('panel.settingsMachine.moveFeedrate', ['mm/min'])" hide-details />
+								  :label="$t('panel.settingsMachine.moveFeedrate', ['mm/min'])" hide-details :disabled="true"/>
 				</v-col>
 				<v-col cols="12">
 					<v-autocomplete v-model="toolChangeMacros" :items="toolChangeMacroList" chips clearable
