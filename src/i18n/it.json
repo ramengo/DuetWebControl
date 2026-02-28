@@ -1,0 +1,1135 @@
+{
+  "language": "Italiano",
+  "$vuetify": {
+    "badge": "Badge",
+    "close": "Chiudi",
+    "dataIterator": {
+      "noResultsText": "Nessun record corrispondente trovato",
+      "loadingText": "Caricamento elementi..."
+    },
+    "dataTable": {
+      "itemsPerPageText": "Righe per pagina:",
+      "ariaLabel": {
+        "sortDescending": "Ordinamento decrescente.",
+        "sortAscending": "Ordinamento crescente.",
+        "sortNone": "Non ordinato.",
+        "activateNone": "Attiva per rimuovere l'ordinamento.",
+        "activateDescending": "Attiva per ordinare in modo decrescente.",
+        "activateAscending": "Attiva per ordinare in modo crescente."
+      },
+      "sortBy": "Ordina per"
+    },
+    "dataFooter": {
+      "itemsPerPageText": "Elementi per pagina:",
+      "itemsPerPageAll": "Tutti",
+      "nextPage": "Pagina successiva",
+      "prevPage": "Pagina precedente",
+      "firstPage": "Prima pagina",
+      "lastPage": "Ultima pagina",
+      "pageText": "{0}-{1} di {2}"
+    },
+    "datePicker": {
+      "itemsSelected": "{0} selezionati"
+    },
+    "noDataText": "Nessun dato disponibile",
+    "carousel": {
+      "prev": "Immagine precedente",
+      "next": "Immagine successiva",
+      "ariaLabel": {
+        "delimiter": "Diapositiva carosello {0} di {1}"
+      }
+    },
+    "calendar": {
+      "moreEvents": "{0} altri"
+    },
+    "fileInput": {
+      "counter": "{0} file",
+      "counterSize": "{0} file ({1} in totale)"
+    },
+    "timePicker": {
+      "am": "AM",
+      "pm": "PM"
+    }
+  },
+  "button": {
+    "add": {
+      "caption": "Aggiungi"
+    },
+    "connect": {
+      "connect": "Connetti",
+      "connecting": "Connessione in corso...",
+      "disconnect": "Disconnetti",
+      "disconnecting": "Disconnessione in corso..."
+    },
+    "emergencyStop": {
+      "caption": "Arresto di Emergenza",
+      "title": "Imponi un reset software immediato (M112+M999)"
+    },
+    "home": {
+      "caption": "Home {0}",
+      "captionAll": "Home Tutti",
+      "title": "Porta l'asse {0} in home (G28 {0})",
+      "titleAll": "Porta tutti gli assi in home (G28)"
+    },
+    "newDirectory": {
+      "caption": "Nuova Cartella"
+    },
+    "newFilament": {
+      "caption": "Nuovo Filamento"
+    },
+    "newFile": {
+      "caption": "Nuovo File"
+    },
+    "refresh": {
+      "caption": "Aggiorna"
+    },
+    "reset": {
+      "caption": "Resetta Macchina",
+      "title": "Invia M999 alla macchina per resettarla"
+    },
+    "upload": {
+      "gcodes": {
+        "caption": "Carica File G-Code",
+        "title": "Carica uno o più file G-Code (supportato anche drag&drop)"
+      },
+      "start": {
+        "caption": "Carica e Avvia",
+        "title": "Carica e avvia uno o più file G-Code (supportato anche drag&drop)"
+      },
+      "firmware": {
+        "caption": "Carica File Firmware",
+        "title": "Carica uno o più file firmware (supportato anche drag&drop)"
+      },
+      "macros": {
+        "caption": "Carica File Macro",
+        "title": "Carica uno o più file macro (supportato anche drag&drop)"
+      },
+      "filaments": {
+        "caption": "Carica Configurazioni Filamenti",
+        "title": "Carica una o più configurazioni filamenti (supportato anche drag&drop)"
+      },
+      "menu": {
+        "caption": "Carica File Menu",
+        "title": "Carica uno o più file menu (supportato anche drag&drop)"
+      },
+      "system": {
+        "caption": "Carica File di Sistema",
+        "title": "Carica uno o più file di sistema (supportato anche drag&drop)"
+      },
+      "web": {
+        "caption": "Carica File Web",
+        "title": "Carica uno o più file web (supportato anche drag&drop)"
+      },
+      "plugin": {
+        "caption": "Installa Plugin",
+        "title": "Carica e avvia un plugin (supportato anche drag&drop)"
+      },
+      "update": {
+        "caption": "Installa Aggiornamento",
+        "title": "Carica e installa un aggiornamento (supportato anche drag&drop)"
+      }
+    }
+  },
+  "chart": {
+    "layer": {
+      "caption": "Grafico Layer",
+      "layerTime": "Tempo Layer",
+      "showLastLayers": "Mostra Ultimi {0} Layer",
+      "showAllLayers": "Mostra Tutti i Layer",
+      "layer": "Layer {0}",
+      "layerDuration": "Durata: {0}",
+      "layerHeight": "Altezza Layer: {0}",
+      "filamentUsage": "Utilizzo Filamento: {0}",
+      "fractionPrinted": "Avanzamento File: {0}",
+      "temperatures": "Temperature: {0}"
+    },
+    "temperature": {
+      "caption": "Grafico Temperature",
+      "heater": "Riscaldatore {0}",
+      "sensor": "Sensore {0}",
+      "noData": "Nessun Dato"
+    }
+  },
+  "dialog": {
+    "changeMoveStep": {
+      "title": "Cambia passo di movimento",
+      "prompt": "Inserisci un nuovo valore per il pulsante di movimento cliccato:"
+    },
+    "configUpdated": {
+      "title": "Applicare la nuova configurazione?",
+      "prompt": "Vuoi riavviare la scheda madre o eseguire nuovamente il file di configurazione? Si consiglia di resettare la scheda madre se hai rimosso porte IO o modificato l'allocazione dei driver.",
+      "reset": "Riavvia Scheda Madre",
+      "runConfig": "Esegui File di Configurazione"
+    },
+    "connect": {
+      "title": "Connetti alla Macchina",
+      "prompt": "Inserisci il nome host e la password della macchina a cui vuoi connetterti:",
+      "hostPlaceholder": "Nome Host",
+      "hostRequired": "Il nome host è obbligatorio",
+      "passwordPlaceholderOptional": "Password (opzionale)",
+      "passwordPlaceholder": "Password",
+      "passwordRequired": "La password è obbligatoria",
+      "rememberPassword": "Ricorda Password",
+      "connect": "Connetti"
+    },
+    "connection": {
+      "connecting": "Connessione in corso...",
+      "disconnecting": "Disconnessione in corso...",
+      "updating": "Attendere mentre gli aggiornamenti vengono installati...",
+      "reconnecting": "Connessione persa, tentativo di riconnessione...",
+      "standBy": "Attendere prego...",
+      "boardUpdateMessage": "La seguente scheda è in fase di aggiornamento:|Le seguenti schede sono in fase di aggiornamento:"
+    },
+    "editExtrusionAmount": {
+      "title": "Modifica quantità di estrusione",
+      "prompt": "Inserisci una nuova quantità per il pulsante cliccato:"
+    },
+    "editExtrusionFeedrate": {
+      "title": "Modifica velocità di estrusione",
+      "prompt": "Inserisci una nuova velocità per il pulsante cliccato:"
+    },
+    "factoryReset": {
+      "title": "Eseguire il ripristino delle impostazioni di fabbrica?",
+      "prompt": "Sei sicuro di voler eseguire un ripristino delle impostazioni di fabbrica? Tutte le impostazioni salvate andranno perse."
+    },
+    "filament": {
+      "titleChange": "Cambia Filamento",
+      "titleLoad": "Carica Filamento",
+      "prompt": "Scegli un filamento:",
+      "noFilaments": "Nessun Filamento disponibile",
+      "changePrompt": {
+        "message": "Premi OK quando il filamento è stato cambiato",
+        "title": "Cambio Filamento"
+      }
+    },
+    "fileEdit": {
+      "gcodeReference": "Riferimento G-Code",
+      "menuReference": "Riferimento Menu",
+      "save": "Salva",
+      "confirmClose": "Il file è stato modificato. Se procedi, le tue modifiche andranno perse.",
+      "confirmSaveEmpty": "Sembra che il file che vuoi salvare sia vuoto. Sei sicuro di voler procedere?",
+      "indentComments": "Indenta Commenti"
+    },
+    "fileTransfer": {
+      "uploadingTitle": "Caricamento File {0} di {1}, {2}% completato",
+      "uploadDoneTitle": "Caricamento Completato!",
+      "uploadFailedTitle": "Caricamento Fallito!",
+      "downloadingTitle": "Download File {0} di {1}, {2}% completato",
+      "downloadDoneTitle": "Download Completati",
+      "downloadFailedTitle": "Download Falliti!",
+      "filename": "Nome File",
+      "size": "Dimensione",
+      "progress": "Avanzamento",
+      "currentSpeed": "Velocità Attuale: {0}",
+      "cancelUploads": "Annulla Caricamenti",
+      "cancelDownloads": "Annulla Download"
+    },
+    "meshEdit": {
+      "title": "Imposta Parametri Mesh",
+      "radius": "Raggio di Sondaggio",
+      "spacing": "Spaziatura",
+      "startCoordinate": "Coordinata iniziale nella direzione {0}",
+      "endCoordinate": "Coordinata finale nella direzione {0}",
+      "spacingDirection": "Spaziatura nella direzione {0}"
+    },
+    "newDirectory": {
+      "title": "Nuova Cartella",
+      "prompt": "Inserisci un nome per la nuova cartella:"
+    },
+    "newFilament": {
+      "title": "Nuovo Filamento",
+      "prompt": "Inserisci un nome per il nuovo filamento:"
+    },
+    "newFile": {
+      "title": "Nuovo File",
+      "prompt": "Inserisci un nuovo nome file:"
+    },
+    "pluginInstallation": {
+      "installation": "Installazione Plugin",
+      "prompt": "Il seguente plugin verrà installato:",
+      "by": "di {0}",
+      "license": "Licenza: {0}",
+      "homepage": "Homepage:",
+      "contents": "Questo pacchetto fornisce componenti software per",
+      "dsf": "Duet Software Framework",
+      "dwc": "Duet Web Control",
+      "rrf": "RepRapFirmware",
+      "prerequisites": "Prerequisiti",
+      "version": "Versione {0}",
+      "noPluginSupport": "Plugin Esterni non consentiti",
+      "rootSupport": "Supporto per Plugin Super-Utente",
+      "invalidManifest": "Manifest del plugin non valido",
+      "permissions": "Permessi Richiesti",
+      "dwcWarning": "Questo plugin contiene componenti per l'interfaccia web. Non possono essere applicati controlli sui permessi nelle sessioni del browser, quindi potrebbe manipolare il tuo sistema e creare rischi per la sicurezza che potrebbero causare danni fisici alla tua configurazione.",
+      "rootWarning": "Questo plugin richiede permessi di super-utente, il che significa che può riconfigurare l'SBC collegato e installare software potenzialmente dannoso. Questo potrebbe causare danni fisici alla tua configurazione.",
+      "sbcPermissions": "Il plugin in esecuzione sull'SBC vuole",
+      "noSpecialPermissions": "Questo plugin non richiede permessi speciali.",
+      "ready": "Installazione Pronta",
+      "readyMessage": "Il plugin è ora pronto per essere installato. Assicurati di fidarti dell'autore del plugin prima di confermare questo passaggio finale.",
+      "readyDisclaimer": "Prima di poter continuare devi accettare che Duet3D Ltd non può essere ritenuta responsabile per potenziali danni derivanti dall'installazione di questo plugin di terze parti.",
+      "checkboxDisclaimer": "Accetto i rischi, installa questo plugin",
+      "progress": "Avanzamento Installazione",
+      "progressText": "Attendere mentre il plugin viene installato...",
+      "installationSuccess": "Installazione completata!",
+      "installationFailed": "Installazione fallita!",
+      "cancel": "Annulla",
+      "back": "Indietro",
+      "next": "Avanti",
+      "finish": "Fine",
+      "reloadPrompt": {
+        "title": "Ricaricare DWC?",
+        "prompt": "Hai appena aggiornato un plugin DWC attivo. Per utilizzare la nuova versione, l'interfaccia web deve essere ricaricata. Vuoi farlo ora?"
+      }
+    },
+    "renameFile": {
+      "title": "Rinomina File o Cartella",
+      "prompt": "Inserisci un nuovo nome:"
+    },
+    "resetHeaterFault": {
+      "title": "Resetta Errore Riscaldatore",
+      "prompt": "Si è verificato un errore nel riscaldatore {0}. Si consiglia vivamente di spegnere la macchina ora e controllare il cablaggio prima di continuare. Se sei assolutamente sicuro che non si tratti di un problema fisico, puoi resettare l'errore del riscaldatore A TUO RISCHIO. Tieni presente che questo NON È RACCOMANDATO e può portare a ulteriori problemi. Come vuoi procedere?",
+      "resetFault": "Resetta Errore"
+    },
+    "runMacro": {
+      "title": "Esegui {0}",
+      "prompt": "Vuoi eseguire {0}?"
+    },
+    "startJob": {
+      "title": "Avvia {0}",
+      "prompt": "Vuoi avviare {0}?"
+    },
+    "update": {
+      "title": "Installare gli aggiornamenti?",
+      "prompt": "Hai caricato almeno un aggiornamento firmware. Vuoi installarli ora?",
+      "resetTitle": "Resettare il firmware?",
+      "resetPrompt": "Hai appena installato aggiornamenti della scheda di espansione. Vuoi riavviare il controller principale per ripristinare la configurazione precedente?",
+      "sbcWarning": "Stai utilizzando la tua macchina in modalità SBC. Aggiorna il firmware usando DWC solo se consigliato dagli sviluppatori del firmware.",
+      "updateWiFiFirmware": "Installa l'aggiornamento del firmware WiFi incluso"
+    },
+    "inputRequired": "Inserisci un valore",
+    "numberRequired": "Inserisci un numero valido",
+    "incompatibleVersions": {
+      "title": "Versioni software incompatibili",
+      "prompt": "Le versioni software installate non corrispondono. Utilizza la tua configurazione solo con versioni uguali per evitare potenziali incompatibilità ed errori inattesi.",
+      "upgradeNotice": "Controlla la {docs} su come aggiornare i componenti software Duet."
+    },
+    "duplicateFilament": {
+      "prompt": "Inserisci un nome per la copia del filamento:",
+      "title": "Duplica Filamento"
+    },
+    "deleteFiles": {
+      "title": "Elimina File|Elimina File",
+      "deleteMulitiplePrompt": "Sei sicuro di voler eliminare i file selezionati?",
+      "deletePrompt": "Sei sicuro di voler eliminare {0}?"
+    },
+    "forceMove": {
+      "title": "Sovrascrivi File",
+      "prompt": "Impossibile spostare il file selezionato, forse esiste già un file con lo stesso nome. Vuoi tentare di sovrascriverlo?"
+    }
+  },
+  "directory": {
+    "menu": "Cartella Menu",
+    "filaments": "Cartella Filamenti",
+    "firmware": "Cartella Firmware",
+    "gcodes": "Cartella G-Code",
+    "macros": "Cartella Macro",
+    "system": "Cartella Sistema",
+    "web": "Cartella WWW"
+  },
+  "error": {
+    "notImplemented": "{0} non è implementato",
+    "invalidPassword": "Password non valida!",
+    "noFreeSession": "Nessuna sessione libera disponibile!",
+    "badVersion": "Versione firmware incompatibile",
+    "connect": "Impossibile connettersi a {0}",
+    "disconnect": "Impossibile disconnettersi correttamente da {0}",
+    "disconnected": "Impossibile completare l'azione perché la connessione è stata terminata",
+    "cancelled": "L'operazione è stata annullata",
+    "network": "Errore di rete",
+    "timeout": "Richiesta HTTP scaduta",
+    "driveUnmounted": "L'unità di destinazione è smontata",
+    "directoryNotFound": "Cartella {0} non trovata",
+    "fileNotFound": "File {0} non trovato",
+    "invalidHeightmap": "Mappa di altezza non valida",
+    "operationFailed": "Operazione fallita (Motivo: {0})",
+    "uploadStartWrongFileCount": "È possibile caricare e avviare solo un singolo file",
+    "uploadNoSingleZIP": "È possibile caricare solo un singolo file ZIP alla volta",
+    "uploadNoFiles": "Questo ZIP non contiene file utilizzabili",
+    "codeResponse": "Impossibile eseguire il codice perché è stata ricevuta una risposta errata",
+    "codeBuffer": "Impossibile eseguire il codice perché lo spazio del buffer è stato esaurito",
+    "enterValidNumber": "Inserisci un numero valido",
+    "turnOffEverythingFailed": "Impossibile spegnere tutto",
+    "filelistRequestFailed": "Impossibile ottenere l'elenco dei file",
+    "fileinfoRequestFailed": "Impossibile ottenere informazioni sul file per {0}",
+    "filamentsLoadFailed": "Impossibile caricare i filamenti",
+    "move": "Impossibile spostare {0} in {1}",
+    "startupError": "Errore nel file di avvio {0} riga {1}: {2}"
+  },
+  "events": {
+    "connected": "Connesso a {0}",
+    "connectionLost": "Impossibile mantenere la connessione a {0}",
+    "emergencyStop": "Arresto di emergenza, tentativo di riconnessione...",
+    "reconnecting": "Connessione interrotta, tentativo di riconnessione...",
+    "reconnected": "Connessione stabilita",
+    "disconnected": "Disconnesso da {0}"
+  },
+  "generic": {
+    "ok": "OK",
+    "cancel": "Annulla",
+    "yes": "Sì",
+    "no": "No",
+    "close": "Chiudi",
+    "reset": "Resetta",
+    "noValue": "n/d",
+    "loading": "caricamento",
+    "error": "Errore",
+    "info": "Info",
+    "warning": "Avviso",
+    "success": "Successo",
+    "heaterStates": {
+      "off": "spento",
+      "standby": "standby",
+      "active": "attivo",
+      "fault": "errore",
+      "tuning": "calibrazione",
+      "offline": "offline"
+    },
+    "status": {
+      "disconnected": "Disconnesso",
+      "starting": "Avvio",
+      "updating": "Aggiornamento",
+      "off": "Spento",
+      "halted": "Arrestato",
+      "pausing": "In Pausa",
+      "paused": "In Pausa",
+      "resuming": "Ripresa",
+      "cancelling": "Annullamento",
+      "printing": "Stampa",
+      "processing": "Elaborazione",
+      "simulating": "Simulazione",
+      "busy": "Occupato",
+      "changingTool": "Cambio Utensile",
+      "idle": "Inattivo",
+      "unknown": "Sconosciuto"
+    },
+    "rpm": "RPM",
+    "sdCard": "Scheda SD {0}",
+    "mounted": "montata",
+    "notMounted": "non montata",
+    "extracting": "Estrazione",
+    "uploading": "Caricamento",
+    "active": "Attivo",
+    "standby": "Standby"
+  },
+  "input": {
+    "code": {
+      "send": "Invia",
+      "placeholder": "Invia codice..."
+    },
+    "addTemperature": "Valore della nuova temperatura",
+    "addRPM": "Valore del nuovo preset",
+    "set": "Imposta"
+  },
+  "jobProgress": {
+    "simulating": "Simulazione di {0}, {1} completato",
+    "simulated": "Simulato {0}, 100% completato",
+    "processing": "Elaborazione di {0}, {1} completato",
+    "processed": "Elaborato {0}, 100% completato",
+    "printing": "Stampa di {0}, {1} completato",
+    "printed": "Stampato {0}, 100% completato",
+    "noJob": "Nessun lavoro in esecuzione.",
+    "layer": "Layer {0} di {1}",
+    "filament": "Utilizzo Filamento: {0}",
+    "filamentRemaining": "{0} rimanente"
+  },
+  "list": {
+    "baseFileList": {
+      "fileName": "Nome File",
+      "size": "Dimensione",
+      "lastModified": "Ultima modifica",
+      "download": "Scarica File",
+      "edit": "Modifica File",
+      "rename": "Rinomina",
+      "delete": "Elimina",
+      "downloadZIP": "Scarica come ZIP",
+      "noFiles": "Nessun File o Cartella",
+      "driveUnmounted": "L'unità è smontata",
+      "goUp": "Vai su"
+    },
+    "menu": {
+      "noFiles": "Nessun File di Visualizzazione"
+    },
+    "eventLog": {
+      "date": "Data",
+      "type": "Tipo",
+      "message": "Evento",
+      "noEvents": "Nessun Evento",
+      "clear": "Cancella",
+      "downloadText": "Scarica come Testo",
+      "downloadCSV": "Scarica come CSV"
+    },
+    "filament": {
+      "noFilaments": "Nessun Filamento",
+      "duplicate": "Duplica"
+    },
+    "firmware": {
+      "installFile": "Installa File Firmware",
+      "noFiles": "Nessun File Firmware"
+    },
+    "macro": {
+      "caption": "Macro",
+      "noMacros": "Nessuna Macro",
+      "run": "Esegui Macro",
+      "root": "Root"
+    },
+    "jobs": {
+      "height": "Altezza Oggetto",
+      "layerHeight": "Altezza Layer",
+      "filament": "Utilizzo Filamento",
+      "printTime": "Tempo di Stampa",
+      "simulatedTime": "Tempo Simulato",
+      "generatedBy": "Generato da",
+      "noJobs": "Nessun Lavoro",
+      "start": "Avvia File",
+      "simulate": "Simula File"
+    },
+    "system": {
+      "noFiles": "Nessun File di Sistema",
+      "configToolNote": "modifica tramite config tool"
+    }
+  },
+  "menu": {
+    "control": {
+      "caption": "Controllo",
+      "status": "Stato",
+      "dashboard": "Dashboard",
+      "console": "Console"
+    },
+    "job": {
+      "caption": "Lavoro",
+      "status": "Stato",
+      "webcam": "Webcam"
+    },
+    "files": {
+      "caption": "File",
+      "jobs": "Lavori",
+      "filaments": "Filamenti",
+      "macros": "Macro",
+      "menu": "Display",
+      "system": "Sistema",
+      "web": "Web"
+    },
+    "plugins": {
+      "caption": "Plugin"
+    },
+    "settings": {
+      "caption": "Impostazioni",
+      "general": "Generali",
+      "machine": "Specifiche Macchina"
+    }
+  },
+  "notification": {
+    "compress": {
+      "title": "Compressione file...",
+      "message": "Attendere mentre i file vengono compressi...",
+      "errorTitle": "Impossibile comprimere i file"
+    },
+    "decompress": {
+      "title": "Decompressione file...",
+      "message": "Attendere mentre i file vengono decompressi...",
+      "errorTitle": "Impossibile decomprimere i file",
+      "standaloneUpdateInSbcModeError": "Stai tentando di caricare un bundle DWC standalone in modalità SBC. Questo NON è supportato. Usa apt update/upgrade per aggiornare il sistema."
+    },
+    "delete": {
+      "errorTitle": "Impossibile eliminare {0}",
+      "errorMessageDirectory": "Assicurati che questa cartella sia vuota",
+      "success": "Eliminato con successo {0}",
+      "successMultiple": "Eliminati con successo {0} elementi"
+    },
+    "deleteFilament": {
+      "errorTitle": "Impossibile eliminare i filamenti",
+      "errorStillLoaded": "Almeno uno dei filamenti selezionati è ancora caricato. Scaricali prima di procedere",
+      "errorSubDirectories": "Il filamento {0} contiene sottocartelle. Eliminale manualmente e riprova."
+    },
+    "download": {
+      "title": "Download di {0} @ {1}, {2}% completato",
+      "message": "Attendere mentre il file viene scaricato...",
+      "success": "Download di {0} completato dopo {1}",
+      "error": "Impossibile scaricare {0}"
+    },
+    "systemPackageInstall": {
+      "title": "Installazione file {0}",
+      "message": "Attendere mentre il file viene installato...",
+      "success": "Installazione di {0} completata",
+      "error": "Impossibile installare {0}"
+    },
+    "message": "Messaggio",
+    "mount": {
+      "successTitle": "Scheda SD montata",
+      "errorTitle": "Impossibile montare la scheda SD"
+    },
+    "pluginLoad": {
+      "title": "Caricamento plugin...",
+      "message": "Attendere mentre i plugin vengono caricati..."
+    },
+    "newDirectory": {
+      "errorTitle": "Impossibile creare la cartella",
+      "successTitle": "Cartella creata",
+      "successMessage": "Cartella {0} creata con successo"
+    },
+    "newFilament": {
+      "errorTitle": "Impossibile creare il filamento",
+      "errorTitleMacros": "Impossibile creare le macro del filamento",
+      "successTitle": "Filamento creato",
+      "successMessage": "Filamento {0} creato con successo"
+    },
+    "plugins": {
+      "started": "Il plugin è stato avviato",
+      "startError": "Impossibile avviare il plugin",
+      "stopped": "Il plugin è stato fermato",
+      "stopError": "Impossibile avviare il plugin",
+      "uninstalled": "Il plugin è stato disinstallato",
+      "uninstallError": "Impossibile disinstallare il plugin"
+    },
+    "rename": {
+      "success": "Rinominato con successo {0} in {1}",
+      "error": "Impossibile rinominare {0} in {1}"
+    },
+    "renameFilament": {
+      "errorTitle": "Impossibile rinominare il filamento",
+      "errorStillLoaded": "Questo filamento è ancora caricato. Scaricalo prima di procedere"
+    },
+    "responseTooLong": "Risposta troppo lunga, vedi Console",
+    "upload": {
+      "title": "Caricamento di {0} @ {1}, {2}% completato",
+      "message": "Attendere mentre il file viene caricato...",
+      "success": "Caricamento di {0} completato dopo {1}",
+      "error": "Impossibile caricare {0}"
+    },
+    "freeSpaceWarning": {
+      "title": "Disco quasi pieno",
+      "message": "C'è poco spazio rimasto sul primo volume. Elimina alcuni file per evitare problemi durante il caricamento."
+    }
+  },
+  "panel": {
+    "atx": {
+      "caption": "Alimentazione ATX",
+      "on": "Acceso",
+      "off": "Spento"
+    },
+    "babystepping": {
+      "caption": "Z Babystepping",
+      "current": "Offset Attuale: {0}"
+    },
+    "extrude": {
+      "caption": "Controllo Estrusione",
+      "mix": "Mix",
+      "mixRatio": "Rapporto Mix:",
+      "amount": "Quantità di alimentazione in {0}:",
+      "feedrate": "Velocità di avanzamento in {0}:",
+      "retract": "Ritrai",
+      "extrude": "Estrudi"
+    },
+    "extrusionFactors": {
+      "caption": "Fattori di Estrusione",
+      "changeVisibility": "Cambia Visibilità",
+      "extruder": "Estrusore {0}",
+      "noExtruders": "Nessun Estrusore"
+    },
+    "fan": {
+      "caption": "Controllo Ventole",
+      "selection": "Selezione Ventola:",
+      "toolFan": "Ventola Utensile",
+      "fan": "Ventola {0}"
+    },
+    "fans": {
+      "caption": "Ventole",
+      "changeVisibility": "Cambia Visibilità",
+      "toolFan": "Ventola Utensile",
+      "fan": "Ventola {0}",
+      "noFans": "Nessuna Ventola"
+    },
+    "jobControl": {
+      "caption": "Controllo Lavoro",
+      "cancelJob": "Annulla Lavoro",
+      "cancelPrint": "Annulla Stampa",
+      "cancelSimulation": "Annulla Simulazione",
+      "pauseJob": "Metti in Pausa Lavoro",
+      "pausePrint": "Metti in Pausa Stampa",
+      "pauseSimulation": "Metti in Pausa Simulazione",
+      "resumeJob": "Riprendi Lavoro",
+      "resumePrint": "Riprendi Stampa",
+      "resumeSimulation": "Riprendi Simulazione",
+      "repeatJob": "Riavvia",
+      "repeatPrint": "Ristampa",
+      "repeatSimulation": "Risimula",
+      "showPreview": "Mostra Anteprima",
+      "printNow": "Stampa Ora",
+      "startJob": "Avvia Lavoro"
+    },
+    "jobData": {
+      "caption": "Dati Raccolti",
+      "warmUpDuration": "Tempo di Riscaldamento",
+      "currentLayerTime": "Tempo Layer Corrente",
+      "lastLayerTime": "Tempo Ultimo Layer",
+      "jobDuration": "Durata Lavoro"
+    },
+    "jobEstimations": {
+      "caption": "Stime basate su",
+      "filament": "Utilizzo Filamento",
+      "file": "Avanzamento File",
+      "layer": "Tempo Layer",
+      "slicer": "Slicer",
+      "simulation": "Simulazione",
+      "toPause": "Prossima pausa"
+    },
+    "jobInfo": {
+      "caption": "Informazioni Lavoro",
+      "height": "Altezza:",
+      "layerHeight": "Altezza Layer:",
+      "filament": "Utilizzo Filamento:",
+      "generatedBy": "Generato da:"
+    },
+    "movement": {
+      "caption": "Movimento Macchina",
+      "compensation": "Compensazione e Calibrazione",
+      "runBed": "Livellamento Piano Reale (G32)",
+      "runDelta": "Calibrazione Delta (G32)",
+      "compensationInUse": "Compensazione in uso: {0}",
+      "compensationType": {
+        "none": "Nessuna",
+        "mesh": "Mesh"
+      },
+      "disableBedCompensation": "Disabilita Compensazione Piano (M561)",
+      "disableMeshCompensation": "Disabilita Compensazione Mesh (G29 S2)",
+      "editMesh": "Definisci Area per Compensazione Mesh (M557)",
+      "runMesh": "Esegui Compensazione Mesh (G29)",
+      "loadMesh": "Carica Mappa Altezza Salvata da Scheda SD (G29 S1)",
+      "axesNotHomed": "Il seguente asse non è in home:|I seguenti assi non sono in home:",
+      "noAxes": "Nessun Asse",
+      "set": "Imposta {0}",
+      "workzero": "Vai a Zero",
+      "setWorkXYZ": "Imposta XYZ di Lavoro"
+    },
+    "settingsAbout": {
+      "buildDateTime": "Compilato il {0}",
+      "caption": "Informazioni",
+      "credits": "Interfaccia web sviluppata da {author} per {Duet3D}.",
+      "license": "Concesso in licenza secondo i termini della {gpl}."
+    },
+    "settingsAppearance": {
+      "caption": "Aspetto",
+      "darkTheme": "Tema scuro",
+      "language": "Lingua",
+      "binaryFileSizes": "Usa dimensioni file binarie",
+      "binaryFileSizesTitle": "Le dimensioni dei file vengono visualizzate con base 1024 (IEC) invece di 1000 (SI)",
+      "disableAutoComplete": "Disabilita completamento automatico",
+      "disableAutoCompleteTitle": "Non mostrare l'elenco di completamento automatico quando si digita negli input di codice o temperatura",
+      "dashboardModeTitle": "Modalità Dashboard",
+      "bottomNavigation": "Mostra navigazione inferiore sui dispositivi tablet",
+      "numericInputs": "Mostra campi di input numerici invece di slider",
+      "iconMenu": "Usa menu icone compatto",
+      "decimalPlaces": "Numero di cifre decimali nella visualizzazione delle coordinate",
+      "displayUnitsTitle": "Unità di misura per la visualizzazione delle coordinate",
+      "unitInches": "pollici",
+      "unitInch": "in",
+      "unitMm": "mm",
+      "unitInchSpeed": "ipm",
+      "unitMmSpeed": "mm/s",
+      "singleBedControl": "Controllo piano singolo",
+      "singleChamberControl": "Controllo camera singola",
+      "showMixingControls": "Mostra controlli di miscelazione per utensili con più estrusori"
+    },
+    "settingsHideMenuItems": {
+      "caption": "Nascondi Voci Menu",
+      "console": "Nascondi Console",
+      "filamentFiles": "Nascondi File Filamenti",
+      "macroFiles": "Nascondi File Macro",
+      "systemFiles": "Nascondi File di Sistema",
+      "machineSettings": "Nascondi Impostazioni Macchina",
+      "pluginSettings": "Nascondi Impostazioni Plugin"
+    },
+    "settingsCommunication": {
+      "caption": "Comunicazione",
+      "pingInterval": "Intervallo PING quando inattivo (ms)",
+      "updateDelay": "Ritardo aggiornamento (ms)",
+      "ajaxRetries": "Numero massimo di tentativi AJAX",
+      "updateInterval": "Intervallo di aggiornamento ({0})",
+      "fileTransferRetryThreshold": "Soglia di ripetizione per trasferimenti file ({0})",
+      "crcUploads": "Usa checksum CRC32 per i caricamenti",
+      "unavailable": "Nessuna impostazione disponibile",
+      "retryDelay": "Tempo di attesa tra i tentativi AJAX (ms)"
+    },
+    "settingsElectronics": {
+      "caption": "Elettronica",
+      "diagnostics": "Diagnostica",
+      "board": "{0}",
+      "firmware": "Firmware: {0} ({1})",
+      "dwsFirmware": "Versione Duet WiFi Server: {0}",
+      "updateNote": "Nota: Puoi installare aggiornamenti nella pagina Sistema.",
+      "notConnected": "(non connesso)",
+      "dsfVersion": "Versione DSF: {0}",
+      "dwcVersion": "Versione DWC: {0}",
+      "canAddress": "Indirizzo CAN {0}"
+    },
+    "settingsEndstops": {
+      "caption": "Finecorsa",
+      "index": "Indice",
+      "triggered": "Attivato"
+    },
+    "settingsGeneral": {
+      "caption": "Generale",
+      "factoryReset": "Ripristina impostazioni di fabbrica",
+      "settingsStorageLocal": "Salva impostazioni nella memoria locale",
+      "settingsSaveDelay": "Ritardo aggiornamento per modifiche impostazioni ({0})",
+      "cacheStorageLocal": "Salva cache nella memoria locale",
+      "cacheSaveDelay": "Ritardo aggiornamento per modifiche cache ({0})",
+      "ignoreFileTimestamps": "Ignora timestamp file durante il caricamento"
+    },
+    "settingsToolGrouping": {
+      "caption": "Raggruppamento Utensili",
+      "groupTools": "Combina utensili identici nel pannello Utensili",
+      "groupByExtruders": "Utensili identici hanno gli stessi estrusori",
+      "groupByHeaters": "Utensili identici hanno gli stessi riscaldatori",
+      "groupByOffsets": "Utensili identici hanno gli stessi offset",
+      "groupBySpindle": "Utensili identici hanno lo stesso mandrino"
+    },
+    "settingsListItems": {
+      "caption": "Elementi Lista",
+      "toolTemperatures": "Temperature Utensili",
+      "bedTemperatures": "Temperature Piano",
+      "chamberTemperatures": "Temperature Camera",
+      "spindleRPM": "RPM Mandrino"
+    },
+    "settingsMachine": {
+      "caption": "Specifiche Macchina",
+      "babystepAmount": "Quantità babystep ({0})",
+      "moveFeedrate": "Velocità per pulsanti movimento ({0})",
+      "toolChangeMacros": "Macro cambio utensile",
+      "checkVersions": "Controlla versioni software e mostra notifica in caso di incompatibilità"
+    },
+    "settingsNotifications": {
+      "caption": "Notifiche",
+      "notificationErrorsPersistent": "Non chiudere automaticamente i messaggi di errore",
+      "notificationTimeout": "Timeout notifica predefinito ({0})"
+    },
+    "settingsBehaviour": {
+      "caption": "Comportamento",
+      "behaviourJobStart": "Non passare automaticamente al Pannello Stato all'avvio del lavoro",
+      "promptDuringFilamentChange": "Mostra richiesta messaggio dopo lo scaricamento del filamento quando lo si cambia"
+    },
+    "settingsWebcam": {
+      "caption": "Webcam",
+      "webcamURL": "URL Webcam",
+      "webcamUpdateInterval": "Intervallo aggiornamento webcam ({0})",
+      "webcamLiveURL": "URL da aprire quando si clicca sull'immagine della Webcam (opzionale)",
+      "webcamFix": "Non aggiungere qualificatore HTTP extra quando si ricaricano le immagini",
+      "webcamEmbedded": "Incorpora immagine webcam in un iframe",
+      "webcamRotation": "Ruota immagine webcam",
+      "webcamFlip": "Capovolgi immagine webcam",
+      "flipNone": "Nessuno",
+      "flipX": "Capovolgi X",
+      "flipY": "Capovolgi Y",
+      "flipBoth": "Capovolgi entrambi",
+      "enable": "Abilita Webcam"
+    },
+    "speedFactor": {
+      "caption": "Fattore Velocità"
+    },
+    "spindle": {
+      "title": "Mandrini",
+      "spindle": "Mandrino",
+      "active": "Attivo",
+      "direction": "Direzione",
+      "currentRPM": "RPM Attuali",
+      "setRPM": "Imposta RPM",
+      "on": "Acceso",
+      "off": "Spento",
+      "forward": "avanti",
+      "reverse": "indietro"
+    },
+    "status": {
+      "caption": "Stato",
+      "mode": "Modalità: {0}",
+      "toolPosition": "Posizione Utensile",
+      "machinePosition": "Posizione Macchina",
+      "extruders": "Driver Estrusore",
+      "extruderDrive": "Driver {0}",
+      "speeds": "Velocità",
+      "requestedSpeed": "Velocità Richiesta",
+      "topSpeed": "Velocità Massima",
+      "sensors": "Sensori",
+      "mcuTemp": "Temperatura MCU",
+      "minMax": "Minimo: {0}, Massimo {1}",
+      "vIn": "Vin",
+      "v12": "V12",
+      "fanRPM": "RPM Ventola",
+      "probe": "Sonda Z|Sonde Z",
+      "noStatus": "Nessuno Stato",
+      "extrusionRate": "Tasso di Estrusione",
+      "volumetricFlow": "Flusso Volumetrico",
+      "virtualEPos": "Posizione Estrusore Virtuale"
+    },
+    "tools": {
+      "caption": "Utensili",
+      "controlHeaters": "Controlla Riscaldatori",
+      "turnEverythingOff": "Spegni Tutto",
+      "setActiveTemperatures": "Imposta temperature attive",
+      "setStandbyTemperatures": "Imposta temperature standby",
+      "setToolTemperatures": "Imposta temperature utensili",
+      "setBedTemperatures": "Imposta temperature piano",
+      "setChamberTemperatures": "Imposta temperature camera",
+      "tool": "Utensile {0}",
+      "loadFilament": "Carica Filamento",
+      "changeFilament": "Cambia Filamento",
+      "unloadFilament": "Scarica Filamento",
+      "heater": "Riscaldatore {0}",
+      "current": "Corrente",
+      "active": "Attivo",
+      "standby": "Standby",
+      "bed": "Piano {0}",
+      "chamber": "Camera {0}",
+      "extra": {
+        "caption": "Extra",
+        "sensor": "Sensore",
+        "sensorIndex": "Sensore {0}",
+        "value": "Valore",
+        "showInChart": "Mostra nel Grafico",
+        "noItems": "Nessun Sensore Extra"
+      },
+      "noTools": "Nessun Utensile",
+      "allBeds": "Tutti i Piani",
+      "beds": "Piani",
+      "chambers": "Camere",
+      "allChambers": "Tutte le Camere",
+      "reassignFilament": "Riassegna Filamento"
+    },
+    "webcam": {
+      "caption": "Sorveglianza Webcam",
+      "alt": "(immagine webcam)"
+    }
+  },
+  "pluginPermissions": {
+    "commandExecution": "Esegui comandi DSF generici (es. codici G/M/T)",
+    "codeInterceptionRead": "Intercetta codici G/M/T",
+    "codeInterceptionReadWrite": "Intercetta codici G/M/T e manipolali",
+    "managePlugins": "Installa, carica, scarica e disinstalla plugin di terze parti",
+    "manageUserSessions": "Gestisci sessioni utente",
+    "objectModelRead": "Leggi dal modello oggetti",
+    "objectModelReadWrite": "Leggi e scrivi nel modello oggetti",
+    "registerHttpEndpoints": "Crea nuovi endpoint HTTP",
+    "readFilaments": "Leggi file dalla cartella filamenti",
+    "writeFilaments": "Scrivi file nella cartella filamenti",
+    "readFirmware": "Leggi file dalla cartella firmware",
+    "writeFirmware": "Scrivi file nella cartella firmware",
+    "readGCodes": "Leggi file dalla cartella G-codes",
+    "writeGCodes": "Scrivi file nella cartella G-codes",
+    "readMacros": "Leggi file dalla cartella macro",
+    "writeMacros": "Scrivi file nella cartella macro",
+    "readMenu": "Leggi file dalla cartella menu",
+    "writeMenu": "Scrivi file nella cartella menu",
+    "readSystem": "Leggi file dalla cartella sistema",
+    "writeSystem": "Scrivi file nella cartella sistema",
+    "readWeb": "Leggi file dalla cartella web",
+    "writeWeb": "Scrivi file nella cartella web",
+    "fileSystemAccess": "Accedi a file al di fuori della cartella SD virtuale",
+    "launchProcesses": "Avvia nuovi processi",
+    "networkAccess": "Comunica attraverso la rete",
+    "webcamAccess": "Accedi a dispositivi webcam",
+    "gpioAccess": "Accedi a dispositivi GPIO",
+    "superUser": "Esegui come utente root (potenzialmente pericoloso)"
+  },
+  "plugins": {
+    "accelerometer": {
+      "name": "Accelerometro",
+      "listTitle": "File CSV",
+      "none": "Nessun File",
+      "chartCaption": "Campioni di Accelerazione",
+      "noData": "Nessun Campione Caricato",
+      "analysis": "Analisi Frequenza",
+      "samplingRate": "Frequenza di Campionamento (in Hz)",
+      "start": "Inizio",
+      "end": "Fine",
+      "wideBand": "Analisi a banda larga",
+      "analyze": "Analizza",
+      "back": "Indietro",
+      "overflowPrompt": {
+        "title": "Overflow rilevati",
+        "prompt": "Questo file CSV ha riportato overflow. Sei sicuro di voler continuare?"
+      },
+      "loadError": "Impossibile caricare il file CSV",
+      "parseError": "Impossibile analizzare il file CSV",
+      "frequency": "Frequenza (in Hz)",
+      "amplitudes": "Ampiezze",
+      "samples": "Campioni",
+      "accelerations": "Accelerazioni (in g)",
+      "sampleTooltip": "Campione #{0}",
+      "frequencyTooltip": "{0} ± {1} Hz"
+    },
+    "autoUpdate": {
+      "menuCaption": "Aggiornamento"
+    },
+    "gcodeViewer": {
+      "caption": "Visualizzatore G-Code",
+      "view3D": "Vista 3D",
+      "fullscreen": "Schermo Intero",
+      "showConfiguration": "Mostra Configurazione Visualizzatore",
+      "resetCamera": {
+        "caption": "Resetta Camera",
+        "title": "Resetta la camera alla posizione iniziale"
+      },
+      "cancelLoad": "Annulla Caricamento File",
+      "reloadView": {
+        "caption": "Ricarica Vista",
+        "title": "Ricarica il gcode corrente, utilizzato quando si modificano impostazioni come colore, colore velocità, ecc."
+      },
+      "loadCurrentJob": {
+        "caption": "Carica Lavoro Corrente",
+        "title": "Carica il lavoro di stampa o simulazione corrente"
+      },
+      "unloadGCode": {
+        "caption": "Scarica GCode",
+        "title": "Rimuovi il gcode caricato dal visualizzatore"
+      },
+      "loadLocalGCode": {
+        "caption": "Carica GCode Locale",
+        "title": "Carica un file dal tuo disco locale nel visualizzatore"
+      },
+      "showCursor": "Mostra Cursore",
+      "showTravels": "Mostra Spostamenti",
+      "renderQuality": {
+        "caption": "Qualità Rendering",
+        "title": "Regola la qualità di visualizzazione del visualizzatore. Più alto è il livello, più vertici e modalità di rendering diventano disponibili"
+      },
+      "sbc": "SBC",
+      "low": "Bassa",
+      "medium": "Media",
+      "high": "Alta",
+      "ultra": "Ultra",
+      "max": "Max",
+      "forceLineRendering": "Forza Rendering Lineare",
+      "transparency": "Trasparenza",
+      "showSolid": "Mostra Solido",
+      "spreadLines": "Espandi Linee",
+      "extruders": {
+        "caption": "Estrusori",
+        "title": "Imposta il colore utilizzato per il rendering di un estrusore"
+      },
+      "tool": "Utensile {0}",
+      "resetColor": "Resetta Colore Utensile|Resetta Colori Utensili",
+      "renderMode": {
+        "caption": "Modalità Rendering|Modalità Rendering",
+        "title": "La modalità di rendering consente di impostare il colore dell'estrusore o la colorazione delle linee per velocità nel visualizzatore"
+      },
+      "color": "Colore",
+      "feedrate": "Velocità",
+      "minFeedrate": "Velocità Minima (mm/s)",
+      "maxFeedrate": "Velocità Massima (mm/s)",
+      "minFeedrateColor": "Colore Velocità Minima",
+      "maxFeedrateColor": "Colore Velocità Massima",
+      "progress": {
+        "caption": "Avanzamento",
+        "title": "Imposta il colore stampato per il monitoraggio dell'avanzamento"
+      },
+      "topClipping": "Taglio Superiore",
+      "bottomClipping": "Taglio Inferiore",
+      "progressColor": "Colore Avanzamento",
+      "liveZTracking": "Monitoraggio Z Live",
+      "settings": "Impostazioni",
+      "background": "Sfondo",
+      "bedRenderMode": "Modalità Rendering Piano",
+      "bed": "Piano",
+      "volume": "Volume",
+      "showAxes": "Mostra Assi",
+      "showObjectLabels": "Mostra Etichette Oggetti",
+      "cameraInertia": "Inerzia Camera",
+      "showObjectSelection": {
+        "caption": "Mostra Selezione Oggetti",
+        "title": "Abilitato se è possibile rilevare oggetti nella stampa corrente"
+      },
+      "renderFailed": "Rendering precedente fallito. Impostazione qualità rendering su SBC",
+      "showFSOverlay": "Mostra Overlay Schermo Intero",
+      "useHQRendering": "Rendering Alta Qualità (Rotondo)",
+      "useSpecular": "Usa Evidenziazione Speculare",
+      "feature": "Caratteristica",
+      "g1AsExtrusion": "Renderizza G1 (CNC)",
+      "viewGCode": "Visualizza G-Code",
+      "zBelt": "Cinghia Z",
+      "zBeltAngle": "Angolo Portale Cinghia Z",
+      "showWorkplace": "Mostra Area di Lavoro",
+      "perimeterOnly": "Solo Perimetro",
+      "progressMode": "Modalità Avanzamento",
+      "cancelObj": "Annulla Oggetto",
+      "resumeObj": "Riprendi Oggetto",
+      "persistTravels": "Mantieni Spostamenti"
+    },
+    "heightmap": {
+      "menuCaption": "Mappa Altezza",
+      "listTitle": "Mappe Altezza",
+      "none": "Nessuna",
+      "scale": "Scala:",
+      "orMore": "o più",
+      "orLess": "o meno",
+      "axes": "Assi:",
+      "notAvailable": "mappa altezza non disponibile",
+      "statistics": "Statistiche",
+      "numPoints": "Numero di punti: {0}",
+      "radius": "Raggio di sondaggio: {0}",
+      "area": "Area di sondaggio: {0}",
+      "maxDeviations": "Deviazioni massime: {0} / {1}",
+      "meanError": "Errore medio: {0}",
+      "rmsError": "Errore RMS: {0}",
+      "display": "Visualizzazione",
+      "colorScheme": "Schema colori:",
+      "terrain": "Terreno",
+      "heat": "Calore",
+      "invertZ": "Inverti coordinate Z",
+      "topView": "Vista Dall'Alto",
+      "range": "Intervallo",
+      "fixed": "Fisso",
+      "deviation": "Deviazione",
+      "resetView": "Resetta Vista"
+    },
+    "objectModelBrowser": {
+      "menuCaption": "Modello Oggetti",
+      "selectedNode": "Nodo selezionato:",
+      "none": "Nessuno",
+      "documentationNotAvailable": "La documentazione non è disponibile (/www/DuetAPI.xml non trovato)",
+      "summary": "Riepilogo",
+      "remarks": "Note"
+    }
+  },
+  "tabs": {
+    "generalSettings": {
+      "caption": "Generale"
+    },
+    "machineSettings": {
+      "caption": "Generale"
+    },
+    "plugins": {
+      "integratedPlugins": "Plugin Integrati",
+      "externalPlugins": "Plugin Esterni",
+      "headers": {
+        "name": "Nome",
+        "author": "Autore",
+        "version": "Versione",
+        "license": "Licenza",
+        "dependencies": "Dipendenze",
+        "status": "Stato"
+      },
+      "builtIn": "integrato",
+      "optional": "opzionale",
+      "start": "Avvia",
+      "partiallyStarted": "parzialmente avviato",
+      "started": "avviato",
+      "stop": "Ferma",
+      "deactivated": "disattivato",
+      "stopped": "fermato",
+      "uninstall": "Disinstalla",
+      "noPlugins": "Nessun Plugin",
+      "refreshNote": "Aggiorna la pagina per completare lo scaricamento di alcuni plugin DWC",
+      "installed": "installato",
+      "refreshNow": "Aggiorna ora"
+    }
+  }
+}

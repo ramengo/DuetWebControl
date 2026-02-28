@@ -3,6 +3,7 @@ import VueI18n, { LocaleMessages } from "vue-i18n";
 
 import de from "./de.json";
 import en from "./en.json";
+import it from "./it.json";
 import es from "./es.json";
 import fr from "./fr.json";
 import hu from "./hu.json";
@@ -22,6 +23,7 @@ Vue.use(VueI18n);
  */
 const messages: LocaleMessages & Record<string, { plugins: Record<string, object> }> = Vue.observable({
 	de,
+	it,
 	en,
 	es,
 	fr,
