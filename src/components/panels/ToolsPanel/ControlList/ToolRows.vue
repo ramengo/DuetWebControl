@@ -4,6 +4,14 @@
     cursor: default;
 }
 
+.tool-name {
+    font-size: 2em;
+}
+
+.tool-temperature {
+    font-size: 1.3em;
+}
+
 .disabled-heater {
     cursor: default;
 }
@@ -130,7 +138,7 @@
                         <!-- Heater Name -->
                         <th>
                             <template v-if="toolHeater">
-                                <a href="javascript:void(0)" @click="toolHeaterClick(tool, toolHeater)"
+                                <a class="tool-name" href="javascript:void(0)" @click="toolHeaterClick(tool, toolHeater)"
                                    :class="getHeaterClasses(tool.heaters[toolHeaterIndex])">
                                     {{ getHeaterName(toolHeater, tool.heaters[toolHeaterIndex]) }}
                                 </a>
@@ -141,13 +149,13 @@
                                     </span>
                                 </template>
                             </template>
-                            <span v-else>
+                            <span v-else >
                                 {{ $t("generic.noValue") }}
                             </span>
                         </th>
 
                         <!-- Heater value -->
-                        <td>
+                        <td class="tool-temperature">
                             {{ getHeaterValue(toolHeater) }}
                         </td>
 

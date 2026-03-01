@@ -1,32 +1,92 @@
-<style scoped>
+<style>
 .persistent {
 	position: absolute;
 	top: 0px;
 	right: 0px;
 }
+
+/* ============================= */
+/* TITOLO */
+/* ============================= */
+.m291-touch .v-card__title,
+.v-card__title .headline {
+	font-size: 1.7em !important;
+	font-weight: bold !important;
+	line-height: 1.2 !important;
+	text-align: center !important;
+	text-wrap-mode: nowrap;
+}
+
+/* ============================= */
+/* DESCRIZIONE */
+/* ============================= */
+.m291-touch .v-card__text {
+	font-size: 1.3em !important;
+	line-height: 1.4 !important;
+}
+
+/* ============================= */
+/* JOG BUTTON */
+/* ============================= */
+.m291-touch .move-btn {
+	background-color: #ff9800 !important;
+	color: black !important;
+	border-radius: 50px !important;
+	font-size: 0.8em !important;
+	font-weight: bold !important;
+	margin: 12px !important;
+	padding: 20px 0 !important;
+}
+
+.m291-touch.move-btn .v-icon {
+	font-size: 1.2em !important;
+	color: black !important;
+}
+
+/* ============================= */
+/* PULSANTI OK / CANCEL */
+/* ============================= */
+.v-card__actions .v-btn {
+	background-color: #ff9800 !important;
+	color: black !important;
+	font-size: 1em !important;
+	font-weight: bold !important;
+	border-radius: 40px !important;
+	min-width: 40px !important;
+	height: 50px !important;
+	margin: 8px !important;
+}
+
+/* Rimuove colore testo primario Vuetify */
+.v-card__actions .v-btn .v-btn__content {
+	color: black !important;
+}
+
+/* Spaziatura colonne */
+.v-col {
+	padding: 12px !important;
+}
+
 </style>
 
 <template>
 	<v-dialog v-model="shown" :no-click-animation="isPersistent" :persistent="isPersistent">
 		<v-card>
-			<v-card-title class="justify-center">
+			<v-card-title class="m291-touch justify-center">
 				<span class="headline">
 					{{ messageBox.title }}
 				</span>
 			</v-card-title>
 
 			<v-card-text>
-				<!-- Main message -->
-				<div class="text-center" :class="{ 'mb-6': displayedAxes.length > 0 }" v-html="messageBox.message"></div>
+				<div class="text-center m291-touch" :class="{ 'mb-6': displayedAxes.length > 0 }" v-html="messageBox.message"></div>
 
-				<!-- Jog control -->
 				<v-row v-for="axis in displayedAxes" :key="axis.letter" dense>
-					<!-- Decreasing movements -->
 					<v-col>
 						<v-row no-gutters>
 							<v-col v-for="index in numMoveSteps" :key="index" :class="getMoveCellClass(index - 1)">
 								<code-btn :code="getMoveCode(axis, index - 1, true)" :disabled="!canMove(axis)" no-wait
-										  block tile class="move-btn">
+										  block tile class="m291-touch move-btn">
 									<v-icon>mdi-chevron-left</v-icon>
 									{{ axis.letter + showSign(-moveSteps(axis.letter)[index - 1]) }}
 								</code-btn>
@@ -34,20 +94,18 @@
 						</v-row>
 					</v-col>
 
-					<!-- Current position -->
 					<v-col cols="auto" class="d-flex align-center px-3">
 						<strong>
 							{{ axis.letter + ' = ' + displayAxisPosition(axis) }}
 						</strong>
 					</v-col>
 
-					<!-- Increasing movements -->
 					<v-col>
 						<v-row no-gutters>
 							<v-col v-for="index in numMoveSteps" :key="index"
 								   :class="getMoveCellClass(numMoveSteps - index)">
 								<code-btn :code="getMoveCode(axis, numMoveSteps - index, false)"
-										  :disabled="!canMove(axis)" no-wait block tile class="move-btn">
+										  :disabled="!canMove(axis)" no-wait block tile class="m291-touch move-btn">
 									{{ axis.letter + showSign(moveSteps(axis.letter)[numMoveSteps - index]) }}
 									<v-icon>mdi-chevron-right</v-icon>
 								</code-btn>
@@ -56,7 +114,6 @@
 					</v-col>
 				</v-row>
 
-				<!-- Inputs-->
 				<form v-if="needsNumberInput || needsStringInput" @submit.prevent="ok">
 					<v-text-field v-if="needsNumberInput" type="number" autofocus v-model.number="numberInput"
 								  :min="messageBox.min" :max="messageBox.max" :step="needsIntInput ? 1 : 'any'" required

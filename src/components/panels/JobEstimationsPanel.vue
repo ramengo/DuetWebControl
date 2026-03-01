@@ -7,54 +7,44 @@
 
 		<v-card-text class="text-center pb-2">
 			<v-row dense>
-				<v-col v-if="timesLeft.filament !== null" class="d-flex flex-column">
-					<strong>
-						{{ $t("panel.jobEstimations.filament") }}
-					</strong>
-					<span>
-						{{ $displayTime(timesLeft.filament) }}
-					</span>
+				<!-- Mostra solo su schermi verticali (es. 720x1080) -->
+				<v-col cols="12" v-if="timesLeft.filament !== null && $vuetify.breakpoint.smAndDown">
+					<strong>{{ $t("panel.jobEstimations.filament") }}</strong>
+					<span> {{ $displayTime(timesLeft.filament) }}</span>
 				</v-col>
 
-				<v-col class="d-flex flex-column">
-					<strong>
-						{{ $t("panel.jobEstimations.file") }}
-					</strong>
-					<span>
-						{{ $displayTime(timesLeft.file) }}
-					</span>
-				</v-col>
+				<!-- Mostra su schermi orizzontali (es. desktop) -->
+				<template v-else>
+					<v-col v-if="timesLeft.filament !== null" class="d-flex flex-column">
+						<strong>{{ $t("panel.jobEstimations.filament") }}</strong>
+						<span>{{ $displayTime(timesLeft.filament) }}</span>
+					</v-col>
 
-				<v-col v-if="slicerTimeLeft !== null" class="d-flex flex-column">
-					<strong>
-						{{ $t("panel.jobEstimations.slicer") }}
-					</strong>
-					<span>
-						{{ $displayTime(slicerTimeLeft) }}
-					</span>
-				</v-col>
+					<v-col class="d-flex flex-column">
+						<strong>{{ $t("panel.jobEstimations.file") }}</strong>
+						<span>{{ $displayTime(timesLeft.file) }}</span>
+					</v-col>
 
-				<v-col v-if="timesLeft.toPause !== null" class="d-flex flex-column">
-					<strong>
-						{{ $t("panel.jobEstimations.toPause") }}
-					</strong>
-					<span>
-						{{ $displayTime(timesLeft.toPause) }}
-					</span>
-				</v-col>
+					<v-col v-if="slicerTimeLeft !== null" class="d-flex flex-column">
+						<strong>{{ $t("panel.jobEstimations.slicer") }}</strong>
+						<span>{{ $displayTime(slicerTimeLeft) }}</span>
+					</v-col>
 
-				<v-col v-if="simulationTime !== null" class="d-flex flex-column">
-					<strong>
-						{{ $t("panel.jobEstimations.simulation") }}
-					</strong>
-					<span>
-						{{ $displayTime(simulationTime) }}
-					</span>
-				</v-col>
+					<v-col v-if="timesLeft.toPause !== null" class="d-flex flex-column">
+						<strong>{{ $t("panel.jobEstimations.toPause") }}</strong>
+						<span>{{ $displayTime(timesLeft.toPause) }}</span>
+					</v-col>
+
+					<v-col v-if="simulationTime !== null" class="d-flex flex-column">
+						<strong>{{ $t("panel.jobEstimations.simulation") }}</strong>
+						<span>{{ $displayTime(simulationTime) }}</span>
+					</v-col>
+				</template>
 			</v-row>
 		</v-card-text>
 	</v-card>
 </template>
+
 
 <script lang="ts">
 import { MachineStatus, TimesLeft } from "@duet3d/objectmodel";
