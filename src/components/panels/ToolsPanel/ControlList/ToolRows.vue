@@ -1,25 +1,4 @@
 <style scoped>
-.disabled {
-    color: inherit;
-    cursor: default;
-}
-
-.tool-name {
-    font-size: 2em;
-}
-
-.tool-temperature {
-    font-size: 1.3em;
-}
-
-.disabled-heater {
-    cursor: default;
-}
-
-.disabled:hover,
-.disabled-heater {
-    text-decoration: none;
-}
 </style>
 
 <template>
