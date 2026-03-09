@@ -699,6 +699,7 @@
       "compensation": "Compensation & Calibration",
       "runBed": "True Bed Levelling (G32)",
       "runDelta": "Delta Calibration (G32)",
+      "disableHoming": "Disable Homing (M564)",
       "compensationInUse": "Compensation in use: {0}",
       "compensationType": {
         "none": "None",

@@ -695,6 +695,7 @@
       "compensation": "Compensazione e Calibrazione",
       "runBed": "Livellamento Piano Reale (G32)",
       "runDelta": "Calibrazione Delta (G32)",
+      "disableHoming": "Disabilita Homing (M564)",
       "compensationInUse": "Compensazione in uso: {0}",
       "compensationType": {
         "none": "Nessuna",

@@ -64,6 +64,10 @@
 							<v-icon class="mr-1">mdi-grid-off</v-icon>
 							{{ $t("panel.movement.disableMeshCompensation") }}
 						</v-list-item>
+						<v-list-item :disabled="uiFrozen" @click="sendCode('m564 H0	s0')">
+    						<v-icon class="mr-1">mdi-refresh</v-icon>
+    						{{ $t("panel.movement.disableHoming") }}
+						</v-list-item>
 					</v-list>
 				</v-card>
 			</v-menu>
