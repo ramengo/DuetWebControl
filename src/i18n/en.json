@@ -65,6 +65,14 @@
       "caption": "Emergency Stop",
       "title": "Enforce an immediate software reset (M112+M999)"
     },
+    "doorOpen": {
+      "caption": "Door Open",
+      "title": "Open the door"
+    },
+    "doorClose": {
+      "caption": "Door Close",
+      "title": "Close the door"
+    },
     "home": {
       "caption": "Home {0}",
       "captionAll": "Home All",

@@ -54,11 +54,11 @@
     transition: background-color 0.3s; /* Transizione fluida */
 }
 
-.v-dialog > .v-card > .v-card__text {
+.m291-touch .v-dialog > .v-card > .v-card__text {
     padding: 10vw;
 }
 
-.v-card > .v-card__text, .v-card > .v-card__subtitle {
+.m291-touch .v-card > .v-card__text, .m291-touch .v-card > .v-card__subtitle {
 	background-color: transparent !important;
 	font-size: 1.5em !important;
     line-height: 1.4 !important;
@@ -112,7 +112,7 @@
 </style>
 
 <template>
-    <v-dialog v-model="shown" :no-click-animation="isPersistent" :persistent="isPersistent">
+    <v-dialog class="m291-touch" v-model="shown" :no-click-animation="isPersistent" :persistent="isPersistent">
         <v-card class="m291-touch">
             <v-card-title class="m291-touch justify-center">
                 <span class="headline">
