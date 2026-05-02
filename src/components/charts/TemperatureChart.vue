@@ -240,7 +240,7 @@ export default Vue.extend({
 			const now = (new Date()).getTime();
 			if (now - this.lastUpdate >= 1000) {
 				this.chart.config.options!.scales!.yAxes![0].ticks!.min = Math.min(this.minConfiguredTemperature, (this.minHeaterTemperature !== null) ? this.minHeaterTemperature : defaultMinTemperature);
-				this.chart.config.options!.scales!.yAxes![0].ticks!.max = (this.maxHeaterTemperature !== null) ? this.maxHeaterTemperature : defaultMaxTemperature;
+				this.chart.config.options!.scales!.yAxes![0].ticks!.suggestedMax = (this.maxHeaterTemperature !== null) ? this.maxHeaterTemperature : defaultMaxTemperature;
 				this.chart.config.options!.scales!.xAxes![0].ticks!.min = (new Date()).getTime() - maxSampleTime;
 				this.chart.config.options!.scales!.xAxes![0].ticks!.max = (new Date()).getTime();
 
@@ -337,8 +337,7 @@ export default Vue.extend({
 									fontFamily: "Roboto,sans-serif"
 								},
 								min: 0,
-								max: defaultMaxTemperature,
-								stepSize: 50
+								suggestedMax: defaultMaxTemperature
 							}
 						}
 					]

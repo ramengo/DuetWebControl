@@ -32,6 +32,50 @@ a:not(:hover) {
 .probe-span:not(:last-child) {
 	margin-right: 8px;
 }
+
+/* Portrait Touch Axis Layout */
+.axis-section-portrait {
+	padding: 8px 0;
+}
+
+.axis-value {
+	font-size: 14px;
+	margin-top: 4px;
+}
+
+/* Mobile & portrait touch responsivity */
+@media (max-width: 1080px) {
+	.content span,
+	.content strong {
+		font-size: 15px;
+		padding-left: 6px;
+		padding-right: 6px;
+	}
+
+	.probe-span {
+		width: auto;
+		padding: 4px 8px;
+		font-size: 12px;
+	}
+
+	.category-header {
+		flex: 0 0 auto;
+		min-width: 60px;
+	}
+}
+
+@media (max-width: 600px) {
+	.content span,
+	.content strong {
+		font-size: 14px;
+	}
+
+	.probe-span {
+		width: auto;
+		padding: 4px 6px;
+		font-size: 11px;
+	}
+}
 </style>
 
 <template>
@@ -55,7 +99,30 @@ a:not(:hover) {
 					 class="px-0 pt-0 pb-2 content text-xs-center">
 			<!-- Axis Positions -->
 			<template v-if="visibleAxes.length > 0">
-				<v-row no-gutters class="flex-nowrap">
+				<!-- Portrait Touch: Responsive Grid Layout -->
+				<div v-if="isPortraitTouch" class="axis-section-portrait">
+					<strong class="d-block mb-2">
+						<a href="javascript:void(0)" @click="displayToolPosition = !displayToolPosition">
+							{{ $t(displayToolPosition ? "panel.status.toolPosition" : "panel.status.machinePosition") }}
+						</a>
+					</strong>
+
+					<v-row no-gutters dense>
+						<v-col v-for="(axis, index) in visibleAxes" :key="index"
+							   cols="6" sm="4" md="3"
+							   class="d-flex flex-column align-center pa-1">
+							<span class="axis-span font-weight-bold" :class="axisSpanClasses(index)">
+								{{ axis.letter }}
+							</span>
+							<span class="axis-value">
+								{{ $displayAxisPosition(axis, !displayToolPosition) }}
+							</span>
+						</v-col>
+					</v-row>
+				</div>
+
+				<!-- Desktop: Original Horizontal Layout -->
+				<v-row v-else no-gutters class="flex-nowrap">
 					<v-col tag="strong" class="category-header">
 						<a href="javascript:void(0)" @click="displayToolPosition = !displayToolPosition">
 							{{ $t(displayToolPosition ? "panel.status.toolPosition" : "panel.status.machinePosition") }}
@@ -332,6 +399,9 @@ export default Vue.extend({
 		},
 		darkTheme(): boolean {
 			return store.state.settings.darkTheme;
+		},
+		isPortraitTouch(): boolean {
+			return !this.$vuetify.breakpoint.lgAndUp;  // < 1264px
 		}
 	},
 	data() {

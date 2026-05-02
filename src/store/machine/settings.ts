@@ -265,10 +265,10 @@ export default function (connector: BaseConnector | null): MachineSettingsModule
 			displayedExtruders: [0, 1, 2, 3, 4, 5],
 			displayedFans: [-1, 0, 1, 2],
 			moveSteps: {
-				X: [100, 50, 10, 1, 0.1],
-				Y: [100, 50, 10, 1, 0.1],
-				Z: [50, 25, 5, 0.5, 0.05],
-				default: [100, 50, 10, 1, 0.1]
+				X: [10, 1, 0.05],
+				Y: [10, 1, 0.05],
+				Z: [10, 1, 0.05],
+				default: [10, 1, 0.05]
 			},
 			moveFeedrate: 6000,
 			toolChangeMacros: [ToolChangeMacro.free, ToolChangeMacro.pre, ToolChangeMacro.post],

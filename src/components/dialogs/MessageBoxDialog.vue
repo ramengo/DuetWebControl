@@ -1,119 +1,105 @@
 <style>
 .persistent {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
 }
 
 /* ============================= */
-/* COLORI DINAMICI (NUOVI)       */
+/* BARRA COLORE SINISTRA         */
 /* ============================= */
-.msg-info { 
-    /*background-color: #e3f2fd !important; /* Blu chiaro */
-    border-left: 10vw solid #f38321 !important; 
-}
-.msg-warning { 
-    /*background-color: #ffebee !important; /* Rosso chiaro */
-    border-left: 10vw solid #f44336 !important; 
-}
-.msg-success { 
-    /*background-color: #e8f5e9 !important; /* Verde chiaro */
-    border-left: 10vw solid #4caf50 !important; 
-}
+.msg-info    { border-left: 8px solid #f38321 !important; }
+.msg-warning { border-left: 8px solid #f44336 !important; }
+.msg-success { border-left: 8px solid #4caf50 !important; }
+.msg-move    { border-left: 8px solid #13cccf !important; }
 
-.msg-move { 
-    /*background-color: #e8f5e9 !important; /* Verde chiaro */
-    border-left: 10vw solid #13cccf !important; 
-}
-
-/* Forzatura colore testo per stati dinamici */
-.msg-info *, .msg-warning *, .msg-success * {
-    color: black !important;
+/* ============================= */
+/* CARD BASE                     */
+/* ============================= */
+.m291-touch {
+    background-color: #4a4a4a !important;
+    color: #fff !important;
 }
 
 /* ============================= */
-/* TITOLO */
+/* TITOLO                        */
 /* ============================= */
 .m291-touch .v-card__title,
-.v-card__title .headline {
-    font-size: 1.7em !important;
-    font-weight: bold !important;
-    line-height: 4 !important;
+.m291-touch .v-card__title .headline {
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
     text-align: center !important;
-    text-wrap-mode: nowrap;
+    white-space: normal !important;
+    word-break: break-word !important;
+    padding: 20px 24px 10px !important;
+    color: #fff !important;
 }
 
 /* ============================= */
-/* DESCRIZIONE */
+/* CORPO MESSAGGIO               */
 /* ============================= */
 .m291-touch .v-card__text {
-	min-height: 20vh;
-	color: black !important;
-    font-size: 1.5em !important;
-    line-height: 1.4 !important;
-    transition: background-color 0.3s; /* Transizione fluida */
+    font-size: 1.15rem !important;
+    line-height: 1.65 !important;
+    padding: 16px 20px !important;
+    color: #fff !important;
+    background-color: transparent !important;
+    max-height: 65vh;
+    overflow-y: auto;
+    transition: background-color 0.3s;
 }
 
-.m291-touch .v-dialog > .v-card > .v-card__text {
-    padding: 10vw;
-}
-
-.m291-touch .v-card > .v-card__text, .m291-touch .v-card > .v-card__subtitle {
-	background-color: transparent !important;
-	font-size: 1.5em !important;
-    line-height: 1.4 !important;
-}
-
-.m291-touch {
-    background-color: gray !important;
-    color: black !important;
+/* Testo messaggio: preserva gli a-capo del firmware */
+.m291-msg-text {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    text-align: left;
 }
 
 /* ============================= */
-/* JOG BUTTON */
+/* JOG BUTTON                    */
 /* ============================= */
 .m291-touch .move-btn {
     background-color: #ff9800 !important;
     color: black !important;
     border-radius: 20px !important;
-    font-size: 1em !important;
+    font-size: 1rem !important;
     font-weight: bold !important;
-    margin: 12px !important;
+    margin: 8px !important;
     padding: 20px 0 !important;
 }
 
 .m291-touch .move-btn .v-icon {
-    font-size: 1.2em !important;
+    font-size: 1.1rem !important;
     color: black !important;
 }
 
 /* ============================= */
-/* PULSANTI OK / CANCEL */
+/* PULSANTI OK / CANCEL          */
 /* ============================= */
-.v-card__actions .v-btn {
+.m291-touch .v-card__actions .v-btn {
     background-color: #ff9800 !important;
     color: black !important;
-    font-size: 1em !important;
+    font-size: 1rem !important;
     font-weight: bold !important;
     border-radius: 40px !important;
-    min-width: 10vw !important;
+    min-width: 120px !important;
     height: 50px !important;
     margin: 8px !important;
-    padding: 0% 30px !important;
+    padding: 0 28px !important;
 }
 
-.v-card__actions .v-btn .v-btn__content {
+.m291-touch .v-card__actions .v-btn .v-btn__content {
     color: black !important;
-}
-
-.v-col {
-    padding: 12px !important;
 }
 </style>
 
 <template>
-    <v-dialog class="m291-touch" v-model="shown" :no-click-animation="isPersistent" :persistent="isPersistent">
-        <v-card class="m291-touch">
+    <v-dialog v-model="shown" :no-click-animation="isPersistent" :persistent="isPersistent"
+              :max-width="$vuetify.breakpoint.xsOnly ? '98vw' : 680">
+        <v-card class="m291-touch" style="overflow: hidden;">
             <v-card-title class="m291-touch justify-center">
                 <span class="headline">
                     {{ messageBox.title }}
@@ -121,12 +107,11 @@
             </v-card-title>
 
             <v-card-text :class="statusSettings.class">
-                <div class="text-center d-flex align-center justify-center" :class="{ 'mb-6': displayedAxes.length > 0 }">
-                    <v-icon v-if="statusSettings.icon" size="60" class="me-4">
+                <div class="d-flex align-start" :class="{ 'mb-6': displayedAxes.length > 0 }">
+                    <v-icon v-if="statusSettings.icon" size="48" class="me-3 flex-shrink-0 mt-1">
                         {{ statusSettings.icon }}
                     </v-icon>
-                    
-                    <div v-html="displayMessage"></div>
+                    <div class="m291-msg-text" v-html="displayMessage"></div>
                 </div>
 
                 <v-row v-for="axis in displayedAxes" :key="axis.letter" dense>

@@ -1,3 +1,6 @@
+<style scoped>
+</style>
+
 <template>
 	<v-card>
 		<v-card-title class="pb-1">
@@ -12,7 +15,7 @@
 				{{ pauseResumeText }}
 			</code-btn>
 
-			<code-btn v-if="isPaused" block :disabled="isCancelling" class="mt-3" color="error" code="M0">
+<code-btn v-if="isPaused" block :disabled="isCancelling" class="mt-3" color="error" code="M0">
 				<v-icon class="mr-1">mdi-stop</v-icon>
 				{{ cancelText }}
 			</code-btn>
@@ -21,33 +24,12 @@
 				<v-icon class="mr-1">{{ processAnotherIcon }}</v-icon>
 				{{ processAnotherText }}
 			</code-btn>
-
-			<v-menu v-if="thumbnails.some(thumbnail => thumbnail.data !== null)" open-on-click offset-y>
-				<template #activator="{ attrs, on }">
-					<v-btn color="info" block :disabled="uiFrozen" class="mt-3" v-bind="attrs" v-on="on">
-						<v-icon class="mr-1">mdi-image</v-icon>
-						{{ $t("panel.jobControl.showPreview" )}}
-					</v-btn>
-				</template>
-
-				<v-card>
-					<v-carousel height="auto" hide-delimiters :show-arrows="validThumbnails.length > 1"
-								show-arrows-on-hover>
-						<v-carousel-item v-for="thumbnail in validThumbnails"
-										 :key="`${thumbnail.format}-${thumbnail.width}x${thumbnail.height}`">
-							<div class="d-flex fill-height align-center">
-								<thumbnail-img :thumbnail="thumbnail" class="mx-auto" />
-							</div>
-						</v-carousel-item>
-					</v-carousel>
-				</v-card>
-			</v-menu>
 		</v-card-text>
 	</v-card>
 </template>
 
 <script lang="ts">
-import { MachineMode, MachineStatus, ThumbnailInfo } from "@duet3d/objectmodel";
+import { MachineMode, MachineStatus } from "@duet3d/objectmodel";
 import Vue from "vue";
 
 import store from "@/store";
@@ -79,7 +61,7 @@ export default Vue.extend({
 			}
 			return this.$t("panel.jobControl.cancelJob");
 		},
-		processAnotherCode() {
+		processAnotherCode(): string {
 			if (store.state.machine.model.job.lastFileName !== null) {
 				if (store.state.machine.model.job.lastFileSimulated && (store.state.machine.model.job.lastFileAborted || store.state.machine.model.job.lastFileCancelled)) {
 					return `M37 P"${escapeFilename(store.state.machine.model.job.lastFileName)}"`;
@@ -88,32 +70,24 @@ export default Vue.extend({
 			}
 			return "";
 		},
-		processAnotherIcon() {
+		processAnotherIcon(): string {
 			if (store.state.machine.model.job.lastFileSimulated && !(store.state.machine.model.job.lastFileAborted || store.state.machine.model.job.lastFileCancelled)) {
 				return (!store.state.machine.model.state.machineMode || store.state.machine.model.state.machineMode === MachineMode.fff) ? "mdi-printer" : "mdi-play";
 			}
 			return "mdi-restart";
 		},
-		processAnotherText() {
+		processAnotherText(): string {
 			if (store.state.machine.model.job.lastFileSimulated) {
 				if (store.state.machine.model.job.lastFileAborted || store.state.machine.model.job.lastFileCancelled) {
-					return this.$t('panel.jobControl.repeatSimulation');
+					return this.$t("panel.jobControl.repeatSimulation");
 				}
-				return (!store.state.machine.model.state.machineMode || store.state.machine.model.state.machineMode === MachineMode.fff) ? this.$t('panel.jobControl.printNow') : this.$t("panel.jobControl.startJob");
+				return (!store.state.machine.model.state.machineMode || store.state.machine.model.state.machineMode === MachineMode.fff) ? this.$t("panel.jobControl.printNow") : this.$t("panel.jobControl.startJob");
 			}
 			if (store.state.machine.model.state.machineMode === MachineMode.fff) {
-				return this.$t('panel.jobControl.repeatPrint');
+				return this.$t("panel.jobControl.repeatPrint");
 			}
-			return this.$t('panel.jobControl.repeatJob');
+			return this.$t("panel.jobControl.repeatJob");
 		},
-		thumbnails(): Array<ThumbnailInfo> {
-			const thumbnails = (store.state.machine.model.job.file !== null) ? store.state.machine.model.job.file.thumbnails.slice() : [];
-			thumbnails.sort((a, b) => (b.width * b.height) - (a.width * a.height));		// return biggest thumbnails first
-			return thumbnails;
-		},
-		validThumbnails(): Array<ThumbnailInfo> {
-			return this.thumbnails.filter(thumbnail => !!thumbnail.data);
-		}
 	},
 	data() {
 		return {

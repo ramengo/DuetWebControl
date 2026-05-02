@@ -61,3 +61,59 @@ textarea {
 .v-btn {
 	text-transform: unset !important;
 }
+
+/* Touch-friendly tap targets — portrait display 720×1080 */
+@media (max-width: 1080px) {
+	.v-btn {
+		min-height: 44px !important;
+		padding: 8px 12px !important;
+	}
+
+	.v-list-item {
+		min-height: 44px !important;
+
+		.v-list-item__content {
+			padding: 8px 0 !important;
+		}
+	}
+
+	.v-text-field,
+	.v-select,
+	.v-autocomplete {
+		.v-input__control {
+			min-height: 44px !important;
+		}
+
+		input,
+		textarea {
+			padding: 8px 12px !important;
+		}
+	}
+
+	.v-card__title {
+		font-size: 15px !important;
+	}
+
+	.v-card__text {
+		font-size: 14px !important;
+	}
+
+	.v-dialog .v-card__title {
+		font-size: 16px !important;
+		padding: 12px 20px !important;
+	}
+
+	.v-chip {
+		height: 32px !important;
+	}
+
+	/* Icon buttons sized to fit ~50px slider columns */
+	.v-btn.v-btn--icon {
+		width: 40px !important;
+		height: 40px !important;
+	}
+
+	.v-data-table tbody tr {
+		height: 44px !important;
+	}
+}

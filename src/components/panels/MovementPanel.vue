@@ -1,8 +1,14 @@
-<style>
+<style scoped>
 .move-btn {
 	padding-left: 0 !important;
 	padding-right: 0 !important;
 	min-width: 0;
+	min-height: 56px !important;
+	font-size: 1rem !important;
+	font-weight: 600;
+}
+.home-btn {
+	min-height: 56px !important;
 }
 </style>
 
@@ -10,7 +16,8 @@
 	<v-card>
 		<v-card-title>
 			<code-btn v-show="visibleAxes.length" color="primary" small code="G28" :disabled="!canHome"
-					  :title="$t('button.home.titleAll')" class="ml-0 hidden-sm-and-down">
+					  :title="$t('button.home.titleAll')" class="ml-0 hidden-sm-and-down home-btn">
+				<v-icon small class="mr-1">mdi-home</v-icon>
 				{{ $t("button.home.captionAll") }}
 			</code-btn>
 
@@ -37,7 +44,6 @@
 								{{ $t("panel.movement.compensationInUse", [$t(`panel.movement.compensationType.${compensationType}`)]) }}
 								<v-spacer />
 							</v-list-item>
-
 							<v-divider />
 						</template>
 
@@ -45,9 +51,7 @@
 							<v-icon class="mr-1">mdi-format-vertical-align-center</v-icon>
 							{{ isDelta ? $t("panel.movement.runDelta") : $t("panel.movement.runBed") }}
 						</v-list-item>
-
 						<v-divider />
-
 						<v-list-item :disabled="!canHome" @click="sendCode('G29')">
 							<v-icon class="mr-1">mdi-grid</v-icon>
 							{{ $t("panel.movement.runMesh") }}
@@ -64,9 +68,14 @@
 							<v-icon class="mr-1">mdi-grid-off</v-icon>
 							{{ $t("panel.movement.disableMeshCompensation") }}
 						</v-list-item>
-						<v-list-item :disabled="uiFrozen" @click="sendCode('m564 H0	s0')">
-    						<v-icon class="mr-1">mdi-refresh</v-icon>
-    						{{ $t("panel.movement.disableHoming") }}
+						<v-list-item :disabled="uiFrozen" @click="sendCode('m564 H0\ts0')">
+							<v-icon class="mr-1">mdi-refresh</v-icon>
+							{{ $t("panel.movement.disableHoming") }}
+						</v-list-item>
+						<v-divider />
+						<v-list-item :disabled="!isIdle" @click="sendCode('M18')">
+							<v-icon class="mr-1">mdi-motor-off</v-icon>
+							Disabilita motori
 						</v-list-item>
 					</v-list>
 				</v-card>
@@ -74,58 +83,64 @@
 		</v-card-title>
 
 		<v-card-text v-show="visibleAxes.length !== 0">
-			<!-- Mobile home buttons -->
-			<v-row class="hidden-md-and-up py-2" no-gutters>
+			<!-- Home row: visible on mobile (sm and below) -->
+			<v-row class="hidden-md-and-up mb-1" no-gutters>
 				<v-col>
-					<code-btn color="primary" code="G28" :disabled="!canHome" :title="$t('button.home.titleAll')" block
-							  tile>
+					<code-btn color="primary" code="G28" :disabled="!canHome"
+							  :title="$t('button.home.titleAll')" block tile class="home-btn">
+						<v-icon small class="mr-1">mdi-home</v-icon>
 						{{ $t("button.home.captionAll") }}
 					</code-btn>
 				</v-col>
 				<template v-if="!isDelta">
 					<v-col v-for="(axis, axisIndex) in visibleAxes" :key="axisIndex">
 						<code-btn :color="axis.homed ? 'primary' : 'warning'" :disabled="!canHome"
-								  :title="$t('button.home.title', [/[a-z]/.test(axis.letter) ? `'${axis.letter}` : axis.letter])"
-								  :code="`G28 ${/[a-z]/.test(axis.letter) ? '\'' : ''}${axis.letter}`" block tile>
-							{{ $t("button.home.caption", [axis.letter]) }}
+								  :title="$t('button.home.title', [axis.letter])"
+								  :code="`G28 ${/[a-z]/.test(axis.letter) ? '\'' : ''}${axis.letter}`"
+								  block tile class="home-btn">
+							<v-icon small>mdi-home</v-icon>
+							{{ axis.letter }}
 						</code-btn>
 					</v-col>
 				</template>
 			</v-row>
 
+			<!-- Axis movement rows -->
 			<v-row v-for="(axis, axisIndex) in visibleAxes" :key="axisIndex" dense>
-				<!-- Regular home buttons -->
+				<!-- Per-axis home button (desktop only) -->
 				<v-col v-if="!isDelta" cols="auto" class="flex-shrink-1 hidden-sm-and-down">
 					<code-btn :color="axis.homed ? 'primary' : 'warning'" :disabled="!canHome"
-							  :title="$t('button.home.title', [/[a-z]/.test(axis.letter) ? `'${axis.letter}` : axis.letter])"
-							  :code="`G28 ${/[a-z]/.test(axis.letter) ? '\'' : ''}${axis.letter}`" class="ml-0">
-						{{ $t("button.home.caption", [axis.letter]) }}
+							  :title="$t('button.home.title', [axis.letter])"
+							  :code="`G28 ${/[a-z]/.test(axis.letter) ? '\'' : ''}${axis.letter}`"
+							  class="ml-0 home-btn">
+						<v-icon small>mdi-home</v-icon>
+						{{ axis.letter }}
 					</code-btn>
 				</v-col>
 
-				<!-- Decreasing movements -->
+				<!-- Decreasing: dal più grande (sinistra) al più piccolo (verso centro) -->
 				<v-col>
 					<v-row no-gutters>
-						<v-col v-for="index in numMoveSteps" :key="index" :class="getMoveCellClass(index - 1)">
-							<code-btn :code="getMoveCode(axis, index - 1, true)" :disabled="!canMove(axis)" no-wait
-									  @contextmenu.prevent="showMoveStepDialog(axis.letter, index - 1)" block tile
-									  class="move-btn">
-								<v-icon>mdi-chevron-left</v-icon>
-								{{ axis.letter + showSign(-moveSteps(axis.letter)[index - 1]) }}
+						<v-col v-for="index in numMoveSteps" :key="index">
+							<code-btn :code="getMoveCode(axis, centerMoveIdx + (index - 1), true)" :disabled="!canMove(axis)"
+									  no-wait @contextmenu.prevent="showMoveStepDialog(axis.letter, centerMoveIdx + (index - 1))"
+									  block tile class="move-btn">
+								<v-icon small>mdi-chevron-left</v-icon>
+								{{ axis.letter + showSign(-moveSteps(axis.letter)[centerMoveIdx + (index - 1)]) }}
 							</code-btn>
 						</v-col>
 					</v-row>
 				</v-col>
 
-				<!-- Increasing movements -->
+				<!-- Increasing: dal più piccolo (verso centro) al più grande (destra) -->
 				<v-col>
 					<v-row no-gutters>
-						<v-col v-for="index in numMoveSteps" :key="index" :class="getMoveCellClass(numMoveSteps - index)">
-							<code-btn :code="getMoveCode(axis, numMoveSteps - index, false)" :disabled="!canMove(axis)"
-									  no-wait @contextmenu.prevent="showMoveStepDialog(axis.letter, numMoveSteps - index)"
+						<v-col v-for="index in numMoveSteps" :key="index">
+							<code-btn :code="getMoveCode(axis, centerMoveIdx + (numMoveSteps - index), false)" :disabled="!canMove(axis)"
+									  no-wait @contextmenu.prevent="showMoveStepDialog(axis.letter, centerMoveIdx + (numMoveSteps - index))"
 									  block tile class="move-btn">
-								{{ axis.letter + showSign(moveSteps(axis.letter)[numMoveSteps - index]) }}
-								<v-icon>mdi-chevron-right</v-icon>
+								{{ axis.letter + showSign(moveSteps(axis.letter)[centerMoveIdx + (numMoveSteps - index)]) }}
+								<v-icon small>mdi-chevron-right</v-icon>
 							</code-btn>
 						</v-col>
 					</v-row>
@@ -133,16 +148,14 @@
 			</v-row>
 		</v-card-text>
 
-		<mesh-edit-dialog :shown.sync="showMeshEditDialog"></mesh-edit-dialog>
+		<mesh-edit-dialog :shown.sync="showMeshEditDialog" />
 		<input-dialog :shown.sync="moveStepDialog.shown" :title="$t('dialog.changeMoveStep.title')"
-					  :prompt="$t('dialog.changeMoveStep.prompt')" :preset="moveStepDialog.preset" is-numeric-value
-					  @confirmed="moveStepDialogConfirmed"></input-dialog>
+					  :prompt="$t('dialog.changeMoveStep.prompt')" :preset="moveStepDialog.preset"
+					  is-numeric-value @confirmed="moveStepDialogConfirmed" />
 
 		<v-alert :value="unhomedAxes.length !== 0" type="warning" class="mb-0">
 			{{ $tc("panel.movement.axesNotHomed", unhomedAxes.length) }}
-			<strong>
-				{{ unhomedAxes.map(axis => axis.letter).join(", ") }}
-			</strong>
+			<strong>{{ unhomedAxes.map(axis => axis.letter).join(", ") }}</strong>
 		</v-alert>
 
 		<v-alert :value="visibleAxes.length === 0" type="info">
@@ -163,6 +176,7 @@ export default Vue.extend({
 		uiFrozen(): boolean { return store.getters["uiFrozen"]; },
 		moveSteps(): (axisLetter: AxisLetter) => Array<number> { return ((axisLetter: AxisLetter) => store.getters["machine/settings/moveSteps"](axisLetter)); },
 		numMoveSteps(): number { return store.getters["machine/settings/numMoveSteps"]; },
+		centerMoveIdx(): number { return Math.max(0, Math.floor(this.numMoveSteps / 2) - 1); },
 		isCompensationEnabled(): boolean { return store.state.machine.model.move.compensation.type !== MoveCompensationType.none; },
 		compensationType(): MoveCompensationType { return store.state.machine.model.move.compensation.type; },
 		visibleAxes(): Array<Axis> { return store.state.machine.model.move.axes.filter(axis => axis.visible); },
@@ -173,6 +187,7 @@ export default Vue.extend({
 				store.state.machine.model.state.status !== MachineStatus.processing &&
 				store.state.machine.model.state.status !== MachineStatus.resuming);
 		},
+		isIdle(): boolean { return store.state.machine.model.state.status === MachineStatus.idle; },
 		unhomedAxes(): Array<Axis> { return store.state.machine.model.move.axes.filter(axis => axis.visible && !axis.homed); }
 	},
 	data() {
@@ -192,16 +207,6 @@ export default Vue.extend({
 		},
 		canMove(axis: Axis) {
 			return (axis.homed || !store.state.machine.model.move.noMovesBeforeHoming) && this.canHome;
-		},
-		getMoveCellClass(index: number) {
-			let classes = "";
-			if (index === 0 || index === 5) {
-				classes += "hidden-lg-and-down";
-			}
-			if (index > 1 && index < 4 && index % 2 === 1) {
-				classes += "hidden-md-and-down";
-			}
-			return classes;
 		},
 		getMoveCode(axis: Axis, index: number, decrementing: boolean) {
 			return `M120\nG91\nG1 ${/[a-z]/.test(axis.letter) ? '\'' : ""}${axis.letter}${decrementing ? '-' : ""}${this.moveSteps(axis.letter)[index]} F${store.state.machine.settings.moveFeedrate}\nM121`;
@@ -223,7 +228,6 @@ export default Vue.extend({
 	},
 	watch: {
 		isConnected() {
-			// Hide dialogs when the connection is interrupted
 			this.showMeshEditDialog = false;
 			this.moveStepDialog.shown = false;
 		}

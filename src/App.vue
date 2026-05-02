@@ -1,8 +1,8 @@
 <template>
 	<v-app>
 		<v-navigation-drawer v-if="!showBottomNavigation" v-model="drawer" clipped fixed app
-							 :width="$vuetify.breakpoint.smAndDown ? 275 : 256" :expand-on-hover="iconMenu"
-							 :mini-variant="iconMenu" :style="`padding-bottom: ${bottomMargin}px`">
+							 :width="drawerWidth" :expand-on-hover="iconMenu || isPortraitTouch"
+							 :mini-variant="iconMenu || isPortraitTouch" :style="`padding-bottom: ${bottomMargin}px`">
 			<div class="mb-3 hidden-sm-and-up">
 				<div class="ma-2">
 					<connect-btn v-if="showConnectButton" class="mb-2" block />
@@ -41,6 +41,25 @@
 					{{ name }}
 				</a>
 			</v-toolbar-title>
+
+			<v-tooltip bottom>
+				<template #activator="{ on, attrs }">
+					<v-btn icon class="ml-2" :color="doorColor" v-bind="attrs" v-on="on" @click="onDoorBtnClick">
+						<v-icon>{{ doorIcon }}</v-icon>
+					</v-btn>
+				</template>
+				<span>{{ doorTooltip }}</span>
+			</v-tooltip>
+
+			<v-tooltip bottom>
+				<template #activator="{ on, attrs }">
+					<v-btn icon class="ml-1" :color="bedPresent ? 'success' : 'error'" v-bind="attrs" v-on="on">
+						<v-icon>{{ bedPresent ? 'mdi-layers' : 'mdi-layers-remove' }}</v-icon>
+					</v-btn>
+				</template>
+				<span>{{ bedPresent ? 'Piano presente' : 'Piano non presente' }}</span>
+			</v-tooltip>
+
 			<connect-btn v-if="showConnectButton" class="hidden-xs-only ml-3" />
 
 			<v-spacer />
@@ -144,14 +163,49 @@ export default Vue.extend({
 			}
 			return store.state.settings.dashboardMode === DashboardMode.fff;
 		},
+		isPortraitTouch(): boolean {
+			return !this.$vuetify.breakpoint.lgAndUp;  // < 1264px (lg breakpoint)
+		},
 		showBottomNavigation(): boolean {
-			return this.$vuetify.breakpoint.mobile && !this.$vuetify.breakpoint.xsOnly && store.state.settings.bottomNavigation;
+			return (this.$vuetify.breakpoint.mobile || this.isPortraitTouch) &&
+				   !this.$vuetify.breakpoint.xsOnly &&
+				   store.state.settings.bottomNavigation;
 		},
 		doNotSwitchToStatusPanelOnJobStart(): boolean {
-			return store.state.settings.behaviour.jobStart; 
+			return store.state.settings.behaviour.jobStart;
 		},
 		bottomMargin(): number {
 			return store.state.bottomMargin;
+		},
+		drawerWidth(): number {
+			if (this.isPortraitTouch && !this.iconMenu) return 48;
+			return this.$vuetify.breakpoint.smAndDown ? 275 : 256;
+		},
+		doorOpen(): boolean {
+			const interlock = store.state.machine.model.sensors.gpIn[9]?.value ?? false;
+			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
+			return !interlock && !latch;
+		},
+		doorColor(): string {
+			const interlock = store.state.machine.model.sensors.gpIn[9]?.value ?? false;
+			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
+			if (!interlock && !latch) return "success";   // porta aperta
+			if (interlock && latch)   return "error";     // interblocco attivato, chiusa
+			return "warning";                             // interblocco disattivato, chiusa
+		},
+		doorIcon(): string {
+			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
+			return latch ? "mdi-lock" : "mdi-lock-open-variant";
+		},
+		doorTooltip(): string {
+			const interlock = store.state.machine.model.sensors.gpIn[9]?.value ?? false;
+			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
+			if (!interlock && !latch) return "Porta aperta";
+			if (interlock && latch)   return "Interblocco attivato — porta chiusa";
+			return "Interblocco disattivato — porta chiusa";
+		},
+		bedPresent(): boolean {
+			return !(store.state.machine.model.sensors.gpIn[11]?.value ?? false);
 		}
 	},
 	data() {
@@ -162,6 +216,11 @@ export default Vue.extend({
 		};
 	},
 	methods: {
+		async onDoorBtnClick() {
+			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
+			const code = latch ? "M1203" : "M1202";
+			await store.dispatch("machine/sendCode", code);
+		},
 		isExpanded(category: MenuCategory): boolean {
 			if (this.$vuetify.breakpoint.smAndDown) {
 				const route = this.$route;
@@ -198,7 +257,7 @@ export default Vue.extend({
 
 		// Validate navigation
 		Vue.prototype.$vuetify = this.$vuetify;
-		this.$router.beforeEach((to: Route, from: Route, next: NavigationGuardNext) => {
+		this.$router.beforeEach((to: Route, _from: Route, next: NavigationGuardNext) => {
 			if (Routes.some(route => route.path === to.path && !(route as MenuItem).condition)) {
 				next("/");
 			} else {

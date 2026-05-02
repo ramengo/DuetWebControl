@@ -17,19 +17,31 @@ import App from "./App.vue";
 Vue.config.productionTip = false;
 Vue.use(Vuetify);
 
+// Custom Vuetify configuration with portrait touch breakpoint
+const vuetifyConfig = new Vuetify({
+	breakpoint: {
+		thresholds: {
+			xs: 0,
+			sm: 600,
+			md: 960,
+			lg: 1264,
+		},
+		mobileBreakpoint: "sm"
+	},
+	theme: {
+		dark: (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) || false
+	},
+	icons: {
+		iconfont: "mdiSvg",
+	},
+	lang: { t: (key, ...params) => i18n.t(key, params) }
+});
+
 export default new Vue({
 	el: "#app",
 	i18n,
 	render: h => h(App),
 	router,
 	store,
-	vuetify: new Vuetify({
-		theme: {
-			dark: (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) || false
-		},
-		icons: {
-			iconfont: "mdiSvg",
-		},
-		lang: { t: (key, ...params) => i18n.t(key, params) }
-	})
+	vuetify: vuetifyConfig
 });

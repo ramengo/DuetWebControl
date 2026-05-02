@@ -16,6 +16,9 @@ p:last-child {
 
 		<v-card-text class="d-flex flex-column pt-0">
 			<p>
+				<status-label />
+			</p>
+			<p>
 				<strong>{{ $t("panel.jobInfo.height") }}</strong>
 				{{ $displayZ(jobFile?.height) }}
 			</p>

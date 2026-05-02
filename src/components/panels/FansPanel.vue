@@ -1,6 +1,25 @@
+<style scoped>
+.fan-col {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex: 1 1 0;
+	min-width: 0;
+	overflow: hidden;
+}
+.fan-label {
+	font-size: 0.7rem;
+	line-height: 1.2;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
+}
+</style>
+
 <template>
-	<v-card>
-		<v-card-title class="pb-0">
+	<v-card class="d-flex flex-column" style="height: 50vh">
+		<v-card-title class="pb-0 flex-shrink-0">
 			<v-icon small class="mr-1">mdi-fan</v-icon>
 			{{ $t("panel.fans.caption") }}
 
@@ -35,19 +54,19 @@
 			</v-menu>
 		</v-card-title>
 
-		<v-card-text v-if="hasVisibleFans" class="d-flex flex-column pb-0">
-			<div v-if="displayedFans.includes(-1) && (toolFanValue >= 0)"
-				 class="d-flex flex-column pt-2">
-				{{ $t("panel.fans.toolFan") }}
-				<percentage-input :value="toolFanValue" @input="setFanValue(-1, $event)" :disabled="uiFrozen" />
+		<v-card-text v-if="hasVisibleFans" class="d-flex flex-row flex-grow-1 pb-2 px-1 overflow-hidden">
+			<div v-if="displayedFans.includes(-1) && (toolFanValue >= 0)" class="fan-col mx-1">
+				<span class="fan-label">{{ $t("panel.fans.toolFan") }}</span>
+				<percentage-input vertical :value="toolFanValue" @input="setFanValue(-1, $event)"
+								  :disabled="uiFrozen" class="flex-grow-1 fill-height" />
 			</div>
 
 			<template v-for="(fan, index) in fans">
 				<div v-if="displayedFans.includes(index) && (fan !== null) && (fan.thermostatic.sensors.length === 0)"
-					 :key="index" class="d-flex flex-column pt-2">
-					{{ (fan.name ? fan.name : $t("panel.fans.fan", [index])) }}
-					<percentage-input :value="fan.requestedValue * 100" @input="setFanValue(index, $event)"
-									  :disabled="uiFrozen" />
+					 :key="index" class="fan-col mx-1">
+					<span class="fan-label">{{ fan.name ? fan.name : $t("panel.fans.fan", [index]) }}</span>
+					<percentage-input vertical :value="fan.requestedValue * 100" @input="setFanValue(index, $event)"
+									  :disabled="uiFrozen" class="flex-grow-1 fill-height" />
 				</div>
 			</template>
 		</v-card-text>

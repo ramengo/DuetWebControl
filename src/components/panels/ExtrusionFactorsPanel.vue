@@ -1,6 +1,29 @@
+<style scoped>
+.extruder-col {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex: 1 1 0;
+	min-width: 0;
+	overflow: hidden;
+}
+.extruder-label {
+	font-size: 0.7rem;
+	line-height: 1.2;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
+}
+.reset-btn {
+	min-width: 0;
+	height: 20px;
+}
+</style>
+
 <template>
-	<v-card>
-		<v-card-title class="pb-0">
+	<v-card class="d-flex flex-column" style="height: 50vh">
+		<v-card-title class="pb-0 flex-shrink-0">
 			<v-icon small class="mr-1">mdi-texture</v-icon>
 			{{ $t("panel.extrusionFactors.caption") }}
 
@@ -26,21 +49,17 @@
 			</v-menu>
 		</v-card-title>
 
-		<v-card-text v-if="hasVisibleExtruders" class="d-flex flex-column pb-0">
+		<v-card-text v-if="hasVisibleExtruders" class="d-flex flex-row flex-grow-1 pb-2 px-1 overflow-hidden">
 			<template v-for="(extruder, index) in extruders">
-				<div v-if="displayedExtruders.includes(index)" :key="index" class="d-flex flex-column pt-2">
-					<div class="d-inline-flex">
-						{{ $t("panel.extrusionFactors.extruder", [index]) }}
-						<v-spacer />
-						<a v-show="extruder.factor !== 1" href="javascript:void(0)" :disabled="uiFrozen"
-						   @click.prevent="setExtrusionFactor(index, 100)" class="subtitle-2">
-							<v-icon small class="mr-1">mdi-backup-restore</v-icon>
-							{{ $t("generic.reset") }}
-						</a>
-					</div>
-
-					<percentage-input :value="getExtrusionFactor(extruder)" @input="setExtrusionFactor(index, $event)"
-									  :min="0" :max="getMax(extruder)" :step="1" :disabled="uiFrozen" />
+				<div v-if="displayedExtruders.includes(index)" :key="index" class="extruder-col mx-1">
+					<span class="extruder-label">{{ $t("panel.extrusionFactors.extruder", [index]) }}</span>
+					<a v-show="extruder.factor !== 1" href="javascript:void(0)" :disabled="uiFrozen"
+					   @click.prevent="setExtrusionFactor(index, 100)" class="reset-btn">
+						<v-icon x-small>mdi-backup-restore</v-icon>
+					</a>
+					<percentage-input vertical :value="getExtrusionFactor(extruder)" @input="setExtrusionFactor(index, $event)"
+									  :min="0" :max="getMax(extruder)" :step="1" :disabled="uiFrozen"
+									  class="flex-grow-1 fill-height" />
 				</div>
 			</template>
 		</v-card-text>
