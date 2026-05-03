@@ -31,6 +31,8 @@
 				<thumbnail-img v-if="validThumbnails.length > 0"
 							   :thumbnail="validThumbnails[0]"
 							   style="width: 100%; display: block;" />
+				<img v-else src="/img/icons/fabbrix.svg" alt="Fabbrix"
+					 style="width: 80%; max-width: 180px; display: block; opacity: 0.75;" />
 			</v-col>
 
 			<v-col cols="12">

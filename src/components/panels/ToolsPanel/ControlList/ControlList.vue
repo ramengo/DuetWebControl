@@ -17,19 +17,15 @@ table.tools th {
 <template>
     <table v-if="hasTools || hasBeds || hasChambers" class="tools">
         <colgroup>
-            <col style="width: 25%">
-            <col style="width: 20%">
-            <col style="width: 19%">
-            <col style="width: 18%">
-            <col style="width: 18%">
+            <col style="width: 32%">
+            <col style="width: 23%">
+            <col style="width: 22%">
+            <col style="width: 23%">
         </colgroup>
         <thead>
             <tr>
                 <th class="pl-2">
                     {{ $t("panel.tools.tool", [""]) }}
-                </th>
-                <th class="px-1">
-                    {{ $t("panel.tools.heater", [""]) }}
                 </th>
                 <th class="px-1">
                     {{ $t("panel.tools.current", [""]) }}
@@ -49,7 +45,7 @@ table.tools th {
         <!-- Divider -->
         <tbody v-if="hasTools && hasBeds">
             <tr>
-                <td colspan="5">
+                <td colspan="4">
                     <v-divider />
                 </td>
             </tr>
@@ -61,7 +57,7 @@ table.tools th {
         <!-- Divider -->
         <tbody v-if="(hasTools || hasBeds) && hasChambers">
             <tr>
-                <td colspan="5">
+                <td colspan="4">
                     <v-divider />
                 </td>
             </tr>

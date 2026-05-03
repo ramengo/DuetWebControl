@@ -49,27 +49,23 @@
                             </template>
                         </v-list>
                     </v-menu>
-                </th>
-
-                <!-- Heater name -->
-                <th v-if="selectedHeater !== null">
-                    <a href="javascript:void(0)" :class="getHeaterClasses(selectedHeaterIndex)" @click="heaterClick(selectedIndex, selectedHeater)">
-                        {{ getHeaterName(selectedHeater, selectedHeaterIndex) }}
-                    </a>
                     <br>
-                    <span class="font-weight-regular caption">
+                    <a v-if="selectedHeater !== null" href="javascript:void(0)"
+                       class="font-weight-regular caption"
+                       :class="{ disabled: disabled }"
+                       @click="heaterClick(selectedIndex, selectedHeater)">
                         {{ $t(`generic.heaterStates.${selectedHeater.state}`) }}
-                    </span>
-                </th>
-                <th v-else>
-                    <a href="javascript:void(0)" class="font-weight-regular" @click="allHeatersClick">
+                    </a>
+                    <a v-else-if="firstHeater !== null" href="javascript:void(0)"
+                       class="font-weight-regular caption"
+                       @click="allHeatersClick">
                         {{ $t(`generic.heaterStates.${firstHeater.state}`) }}
                     </a>
                 </th>
 
                 <!-- Heater value -->
                 <td>
-                    {{ getHeaterValue(firstHeater) }}
+                    <span class="font-weight-bold">{{ getHeaterValue(firstHeater) }}</span>
                 </td>
 
                 <!-- Heater active -->
@@ -101,13 +97,6 @@
                                 <v-icon small v-text="(props.type === 'bed') ? 'mdi-radiator' : 'mdi-heat-pump-outline'" />
                                 {{ (props.type === "bed") ? $t("panel.tools.bed", [(heaterItems.length === 1) ? "" : index]) : $t("panel.tools.chamber", [(heaterItems.length === 1) ? "" : index]) }}
                             </a>
-                        </th>
-
-                        <!-- Heater name -->
-                        <th>
-                            <a href="javascript:void(0)" :class="getHeaterClasses(heaterIndex)" @click="heaterClick(index, heater)">
-                                {{ getHeaterName(heater, heaterIndex) }}
-                            </a>
                             <br>
                             <span class="font-weight-regular caption">
                                 {{ $t(`generic.heaterStates.${heater.state}`) }}
@@ -116,7 +105,7 @@
 
                         <!-- Heater value -->
                         <td>
-                            {{ getHeaterValue(heater) }}
+                            <span class="font-weight-bold">{{ getHeaterValue(heater) }}</span>
                         </td>
 
                         <!-- Heater active -->
