@@ -84,42 +84,64 @@
 	gap: 8px;
 }
 
-.m291-touch .v-card__actions .v-btn {
-    background-color: #ff9800 !important;
-    color: black !important;
+/* RIGA 1: GLASSMORPHISM (trasparente + blur) */
+.m291-touch .v-card__actions:not(.msg-actions-row2) .v-btn {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+    color: #fff !important;
+    border-radius: 14px !important;
     font-size: 1rem !important;
-    font-weight: bold !important;
-    border-radius: 40px !important;
-    min-width: 120px !important;
-    height: 50px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.04em !important;
+    height: 52px !important;
+    min-width: 130px !important;
     margin: 0 !important;
-    padding: 0 28px !important;
+    padding: 0 24px !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15) !important;
+    transition: all 0.3s ease !important;
 }
 
-.m291-touch .v-card__actions .v-btn .v-btn__content {
-    color: black !important;
+.m291-touch .v-card__actions:not(.msg-actions-row2) .v-btn:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.m291-touch .v-card__actions:not(.msg-actions-row2) .v-btn .v-btn__content {
+    color: #fff !important;
+}
+
+/* RIGA 2: HMI INDUSTRIALE (dark con accento laterale) */
+.m291-touch .msg-actions-row2 .v-btn {
+    background-color: #2a2a2a !important;
+    border-left: 4px solid #ff9800 !important;
+    border-radius: 8px !important;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    height: 54px !important;
+    min-width: 140px !important;
+    margin: 0 !important;
+    padding: 0 24px !important;
+    color: #fff !important;
+}
+
+.m291-touch .msg-actions-row2 .v-btn .v-btn__content {
+    color: #fff !important;
 }
 
 /* Colori riga 2 per prefisso [W] arancio-rosso, [O] verde, [K] viola */
-.m291-touch .v-card__actions .msg-btn-w {
-    background-color: #ff5722 !important;
-}
-.m291-touch .v-card__actions .msg-btn-w .v-btn__content {
-    color: black !important;
+.m291-touch .msg-actions-row2 .msg-btn-w {
+    border-left-color: #ff5722 !important;
 }
 
-.m291-touch .v-card__actions .msg-btn-o {
-    background-color: #4caf50 !important;
-}
-.m291-touch .v-card__actions .msg-btn-o .v-btn__content {
-    color: white !important;
+.m291-touch .msg-actions-row2 .msg-btn-o {
+    border-left-color: #4caf50 !important;
 }
 
-.m291-touch .v-card__actions .msg-btn-k {
-    background-color: #7c4dff !important;
-}
-.m291-touch .v-card__actions .msg-btn-k .v-btn__content {
-    color: white !important;
+.m291-touch .msg-actions-row2 .msg-btn-k {
+    border-left-color: #7c4dff !important;
 }
 
 .m291-touch .msg-actions-row2 {
