@@ -19,6 +19,7 @@
 .m291-touch {
     background-color: #4a4a4a !important;
     color: #fff !important;
+    font-family: 'Inter', 'Roboto', 'Segoe UI', Arial, sans-serif !important;
 }
 
 /* ============================= */
@@ -26,23 +27,27 @@
 /* ============================= */
 .m291-touch .v-card__title,
 .m291-touch .v-card__title .headline {
-    font-size: 1.4rem !important;
+    font-size: 1.35rem !important;
     font-weight: 700 !important;
-    line-height: 1.4 !important;
+    letter-spacing: 0.03em !important;
+    line-height: 1.35 !important;
     text-align: center !important;
     white-space: normal !important;
     word-break: break-word !important;
-    padding: 20px 24px 10px !important;
+    padding: 22px 24px 10px !important;
     color: #fff !important;
+    text-transform: uppercase !important;
 }
 
 /* ============================= */
 /* CORPO MESSAGGIO               */
 /* ============================= */
 .m291-touch .v-card__text {
-    font-size: 1.25rem !important;
-    line-height: 1.65 !important;
-    padding: 16px 20px !important;
+    font-size: 1.15rem !important;
+    font-weight: 400 !important;
+    line-height: 1.7 !important;
+    letter-spacing: 0.015em !important;
+    padding: 12px 24px 8px !important;
     color: #fff !important;
     background-color: transparent !important;
     max-height: 65vh;
@@ -51,30 +56,43 @@
     text-align: center !important;
 }
 
-/* Testo messaggio: preserva gli a-capo del firmware */
+/* Icona status centrata sopra il testo */
+.m291-touch .v-card__text .v-icon {
+    color: #fff !important;
+    margin-bottom: 10px !important;
+    opacity: 0.92;
+}
+
+/* Testo messaggio: preserva gli a-capo del firmware, centrato */
 .m291-msg-text {
     white-space: pre-wrap;
     word-break: break-word;
     overflow-wrap: anywhere;
-    text-align: left;
+    text-align: center;
+    color: #fff !important;
 }
 
 /* ============================= */
 /* JOG BUTTON                    */
 /* ============================= */
 .m291-touch .move-btn {
-    background-color: #ff9800 !important;
-    color: black !important;
+    background-color: #f38321 !important;
+    color: #fff !important;
     border-radius: 20px !important;
     font-size: 1rem !important;
-    font-weight: bold !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
     margin: 8px !important;
     padding: 20px 0 !important;
 }
 
+.m291-touch .move-btn .v-btn__content {
+    color: #fff !important;
+}
+
 .m291-touch .move-btn .v-icon {
     font-size: 1.1rem !important;
-    color: black !important;
+    color: #fff !important;
 }
 
 /* ============================= */
@@ -93,7 +111,8 @@
     border-radius: 14px !important;
     font-size: 1rem !important;
     font-weight: 500 !important;
-    letter-spacing: 0.04em !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
     height: 52px !important;
     min-width: 130px !important;
     margin: 0 !important;
@@ -103,8 +122,8 @@
 }
 
 .m291-touch .v-card__actions:not(.msg-actions-row2) .v-btn:hover {
-    background: rgba(255, 255, 255, 0.12) !important;
-    border-color: rgba(255, 255, 255, 0.35) !important;
+    background: rgba(255, 255, 255, 0.14) !important;
+    border-color: rgba(255, 255, 255, 0.38) !important;
 }
 
 .m291-touch .v-card__actions:not(.msg-actions-row2) .v-btn .v-btn__content {
@@ -114,11 +133,11 @@
 /* RIGA 2: HMI INDUSTRIALE (dark con accento laterale) */
 .m291-touch .msg-actions-row2 .v-btn {
     background-color: #2a2a2a !important;
-    border-left: 4px solid #ff9800 !important;
+    border-left: 4px solid #f38321 !important;
     border-radius: 8px !important;
-    font-size: 0.85rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.12em !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.14em !important;
     text-transform: uppercase !important;
     height: 54px !important;
     min-width: 140px !important;
@@ -160,8 +179,8 @@
             </v-card-title>
 
             <v-card-text :class="statusSettings.class">
-                <div class="d-flex align-start" :class="{ 'mb-6': displayedAxes.length > 0 }">
-                    <v-icon v-if="statusSettings.icon" size="48" class="me-3 flex-shrink-0 mt-1">
+                <div class="d-flex flex-column align-center" :class="{ 'mb-6': displayedAxes.length > 0 }">
+                    <v-icon v-if="statusSettings.icon" size="44" class="mb-3" color="white">
                         {{ statusSettings.icon }}
                     </v-icon>
                     <div class="m291-msg-text" v-html="displayMessage"></div>
