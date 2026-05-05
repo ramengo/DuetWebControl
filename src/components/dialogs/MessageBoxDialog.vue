@@ -40,7 +40,7 @@
 /* CORPO MESSAGGIO               */
 /* ============================= */
 .m291-touch .v-card__text {
-    font-size: 1.15rem !important;
+    font-size: 1.25rem !important;
     line-height: 1.65 !important;
     padding: 16px 20px !important;
     color: #fff !important;
@@ -48,6 +48,7 @@
     max-height: 65vh;
     overflow-y: auto;
     transition: background-color 0.3s;
+    text-align: center !important;
 }
 
 /* Testo messaggio: preserva gli a-capo del firmware */
@@ -79,6 +80,10 @@
 /* ============================= */
 /* PULSANTI OK / CANCEL          */
 /* ============================= */
+.m291-touch .v-card__actions {
+	gap: 8px;
+}
+
 .m291-touch .v-card__actions .v-btn {
     background-color: #ff9800 !important;
     color: black !important;
@@ -87,12 +92,38 @@
     border-radius: 40px !important;
     min-width: 120px !important;
     height: 50px !important;
-    margin: 8px !important;
+    margin: 0 !important;
     padding: 0 28px !important;
 }
 
 .m291-touch .v-card__actions .v-btn .v-btn__content {
     color: black !important;
+}
+
+/* Colori riga 2 per prefisso [W] arancio-rosso, [O] verde, [K] viola */
+.m291-touch .v-card__actions .msg-btn-w {
+    background-color: #ff5722 !important;
+}
+.m291-touch .v-card__actions .msg-btn-w .v-btn__content {
+    color: black !important;
+}
+
+.m291-touch .v-card__actions .msg-btn-o {
+    background-color: #4caf50 !important;
+}
+.m291-touch .v-card__actions .msg-btn-o .v-btn__content {
+    color: white !important;
+}
+
+.m291-touch .v-card__actions .msg-btn-k {
+    background-color: #7c4dff !important;
+}
+.m291-touch .v-card__actions .msg-btn-k .v-btn__content {
+    color: white !important;
+}
+
+.m291-touch .msg-actions-row2 {
+	margin-top: 16px !important;
 }
 </style>
 
@@ -156,24 +187,44 @@
                 </form>
             </v-card-text>
 
-            <v-card-actions v-if="hasButtons" class="flex-wrap justify-center">
-                <template v-if="isMultipleChoice">
-                    <v-btn v-for="(choice, index) in messageBox.choices" :key="choice" color="blue darken-1"
-                           :text="messageBox.default !== index" @click="accept(index)">
-                        {{ choice }}
-                    </v-btn>
-                    <v-btn v-if="messageBox.cancelButton" color="blue darken-1" text @click="cancel">
-                        {{ $t("generic.cancel") }}
-                    </v-btn>
-                </template>
-                <template v-else>
-                    <v-btn color="blue darken-1" text @click="ok" :disabled="!canConfirm">
-                        {{ $t(isPersistent ? "generic.ok" : "generic.close") }}
-                    </v-btn>
-                    <v-btn v-if="messageBox.cancelButton" color="blue darken-1" text @click="cancel">
-                        {{ $t("generic.cancel") }}
-                    </v-btn>
-                </template>
+            <!-- Riga 1: choices senza prefisso (solo se non ci sono choices riga 2) -->
+            <v-card-actions v-if="isMultipleChoice && choicesRow1.length > 0 && !hasChoicesRow2" class="flex-wrap justify-center">
+                <v-btn v-for="choice in choicesRow1" :key="choice.index" color="blue darken-1"
+                       :text="messageBox.default !== choice.index" @click="accept(choice.index)">
+                    {{ choice.text }}
+                </v-btn>
+                <v-btn v-if="messageBox.cancelButton" color="blue darken-1" text @click="cancel">
+                    {{ $t("generic.cancel") }}
+                </v-btn>
+            </v-card-actions>
+
+            <!-- Riga 1: choices senza prefisso (quando esistono anche choices riga 2) -->
+            <v-card-actions v-if="isMultipleChoice && choicesRow1.length > 0 && hasChoicesRow2" class="flex-wrap justify-center">
+                <v-btn v-for="choice in choicesRow1" :key="choice.index" color="blue darken-1"
+                       :text="messageBox.default !== choice.index" @click="accept(choice.index)">
+                    {{ choice.text }}
+                </v-btn>
+            </v-card-actions>
+
+            <!-- Riga 2: choices con prefisso [W], [O], [K] — ognuno con colore proprio -->
+            <v-card-actions v-if="isMultipleChoice && hasChoicesRow2" class="flex-wrap justify-center msg-actions-row2">
+                <v-btn v-for="choice in choicesRow2" :key="choice.index" :class="choice.btnClass"
+                       :text="messageBox.default !== choice.index" @click="accept(choice.index)">
+                    {{ choice.text }}
+                </v-btn>
+                <v-btn v-if="messageBox.cancelButton" class="msg-btn-w" text @click="cancel">
+                    {{ $t("generic.cancel") }}
+                </v-btn>
+            </v-card-actions>
+
+            <!-- Bottoni standard OK / CANCEL per modalità non-multipleChoice -->
+            <v-card-actions v-else-if="hasButtons" class="flex-wrap justify-center">
+                <v-btn color="blue darken-1" text @click="ok" :disabled="!canConfirm">
+                    {{ $t(isPersistent ? "generic.ok" : "generic.close") }}
+                </v-btn>
+                <v-btn v-if="messageBox.cancelButton" color="blue darken-1" text @click="cancel">
+                    {{ $t("generic.cancel") }}
+                </v-btn>
             </v-card-actions>
         </v-card>
 
@@ -192,7 +243,7 @@ import { isNumber } from "@/utils/numbers";
 
 export default Vue.extend({
     computed: {
-        // --- LOGICA COLORI E ICONE ---
+        // --- LOGICA COLORI BORDO MESSAGGIO ([I] info, [W] warning, [S] success, [M] move) ---
         statusSettings(): { class: string, icon: string } {
             const msg = this.messageBox.message || "";
             if (msg.startsWith('[I]')) return { class: 'msg-info', icon: 'mdi-information' };
@@ -202,10 +253,32 @@ export default Vue.extend({
             return { class: '', icon: '' };
         },
         displayMessage(): string {
-            // Rimuove i tag [I], [W], [S] e l'eventuale spazio successivo
             return (this.messageBox.message || "").replace(/^\[[IWSM]\]\s*/, '');
         },
         // --- FINE LOGICA COLORI ---
+
+        // --- PARSING CHOICES: [W]=arancio-rosso, [O]=verde, [K]=viola ---
+        choicesRow1(): Array<{ text: string, index: number }> {
+            if (!this.messageBox.choices) return [];
+            return this.messageBox.choices
+                .map((c, idx) => ({ text: c, index: idx }))
+                .filter(c => !c.text.startsWith('[W]') && !c.text.startsWith('[O]') && !c.text.startsWith('[K]'));
+        },
+        choicesRow2(): Array<{ text: string, index: number, btnClass: string }> {
+            if (!this.messageBox.choices) return [];
+            return this.messageBox.choices
+                .map((c, idx): { text: string, index: number, btnClass: string } | null => {
+                    if (c.startsWith('[W]')) return { text: c.replace(/^\[W\]\s*/, ''), index: idx, btnClass: 'msg-btn-w' };
+                    if (c.startsWith('[O]')) return { text: c.replace(/^\[O\]\s*/, ''), index: idx, btnClass: 'msg-btn-o' };
+                    if (c.startsWith('[K]')) return { text: c.replace(/^\[K\]\s*/, ''), index: idx, btnClass: 'msg-btn-k' };
+                    return null;
+                })
+                .filter((c): c is { text: string, index: number, btnClass: string } => c !== null);
+        },
+        hasChoicesRow2(): boolean {
+            return (this.messageBox.choices?.some(c => c.startsWith('[W]') || c.startsWith('[O]') || c.startsWith('[K]')) ?? false);
+        },
+        // --- FINE PARSING CHOICES ---
 
         moveSteps(): (axisLetter: AxisLetter) => Array<number> { return ((axisLetter: AxisLetter) => store.getters["machine/settings/moveSteps"](axisLetter)); },
         numMoveSteps(): number { return store.getters["machine/settings/numMoveSteps"]; },
