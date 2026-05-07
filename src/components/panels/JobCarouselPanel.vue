@@ -86,8 +86,8 @@
 }
 .encoder-ring-wrap {
 	position: relative;
-	width: 72px;
-	height: 72px;
+	width: 96px;
+	height: 96px;
 }
 .encoder-ring-svg {
 	position: absolute;
@@ -114,11 +114,12 @@
 	line-height: 1.1;
 }
 .encoder-label {
-	font-size: 0.6rem;
+	font-size: 0.85rem;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
-	opacity: 0.55;
+	opacity: 0.7;
 	margin-top: 4px;
+	font-weight: 600;
 }
 .speed-container {
 	flex: 1 1 0;
@@ -170,6 +171,14 @@
 	<v-card class="carousel-card">
 		<v-tabs v-model="activeTab" grow>
 			<v-tab>
+				<v-icon small class="mr-1">mdi-speedometer</v-icon>
+				Speed
+			</v-tab>
+			<v-tab>
+				<v-icon small class="mr-1">mdi-wrench</v-icon>
+				Tool
+			</v-tab>
+			<v-tab>
 				<v-icon small class="mr-1">mdi-chart-bar</v-icon>
 				Layer
 			</v-tab>
@@ -177,37 +186,12 @@
 				<v-icon small class="mr-1">mdi-thermometer</v-icon>
 				Temp
 			</v-tab>
-			<v-tab>
-				<v-icon small class="mr-1">mdi-wrench</v-icon>
-				Tool
-			</v-tab>
-			<v-tab>
-				<v-icon small class="mr-1">mdi-speedometer</v-icon>
-				Speed
-			</v-tab>
 		</v-tabs>
 
 		<div class="carousel-body">
 			<v-tabs-items v-model="activeTab">
 
-				<!-- Slide 1: Layer chart -->
-				<v-tab-item eager>
-					<layer-chart />
-				</v-tab-item>
-
-				<!-- Slide 2: Temperature chart -->
-				<v-tab-item eager>
-					<temperature-chart />
-				</v-tab-item>
-
-				<!-- Slide 3: Tool (riscaldatori + bed + camera) -->
-				<v-tab-item>
-					<div class="tool-scroll">
-						<tools-panel />
-					</div>
-				</v-tab-item>
-
-				<!-- Slide 4: Speed + Encoder -->
+				<!-- Slide 1: Speed + Encoder -->
 				<v-tab-item>
 					<div v-if="!hasSpeedOrEncoderData" class="speed-empty">
 						<v-icon large>mdi-speedometer-slow</v-icon>
@@ -241,32 +225,32 @@
 						<div v-if="activeFilamentMonitors.length > 0" class="encoder-section">
 							<div v-for="fm in activeFilamentMonitors" :key="fm.index" class="encoder-block">
 								<div class="encoder-ring-wrap">
-									<svg class="encoder-ring-svg" width="72" height="72" viewBox="0 0 72 72">
+									<svg class="encoder-ring-svg" width="96" height="96" viewBox="0 0 96 96">
 										<!-- Sfondo anello esterno: percentuale -->
-										<circle cx="36" cy="36" r="30" fill="none"
-												stroke="rgba(128,128,128,0.18)" stroke-width="5"/>
+										<circle cx="48" cy="48" r="40" fill="none"
+												stroke="rgba(128,128,128,0.18)" stroke-width="6"/>
 										<!-- Anello esterno: percentuale (verde/arancio/rosso) -->
-										<circle cx="36" cy="36" r="30" fill="none"
+										<circle cx="48" cy="48" r="40" fill="none"
 												:stroke="encoderRingColor(fm.lastPercentage)"
+												stroke-width="6"
+												stroke-linecap="round"
+												:stroke-dasharray="251.3"
+												:stroke-dashoffset="encoderDashOffset(fm.lastPercentage)"
+												transform="rotate(-90 48 48)"/>
+										<!-- Sfondo anello interno: posizione raw -->
+										<circle cx="48" cy="48" r="26" fill="none"
+												stroke="rgba(128,128,128,0.18)" stroke-width="5"/>
+										<!-- Anello interno: position 0–1023 → 360° -->
+										<circle cx="48" cy="48" r="26" fill="none"
+												stroke="#42a5f5"
 												stroke-width="5"
 												stroke-linecap="round"
-												:stroke-dasharray="188.5"
-												:stroke-dashoffset="encoderDashOffset(fm.lastPercentage)"
-												transform="rotate(-90 36 36)"/>
-										<!-- Sfondo anello interno: posizione raw -->
-										<circle cx="36" cy="36" r="20" fill="none"
-												stroke="rgba(128,128,128,0.18)" stroke-width="4"/>
-										<!-- Anello interno: position 0–1023 → 360° -->
-										<circle cx="36" cy="36" r="20" fill="none"
-												stroke="#42a5f5"
-												stroke-width="4"
-												stroke-linecap="round"
-												:stroke-dasharray="125.66"
+												:stroke-dasharray="163.4"
 												:stroke-dashoffset="positionDashOffset(fm.position)"
-												transform="rotate(-90 36 36)"/>
+												transform="rotate(-90 48 48)"/>
 									</svg>
 									<div class="encoder-ring-text">
-										<span class="encoder-value">{{ $display(fm.position, 1, 'mm') }}</span>
+										<span class="encoder-value">{{ Math.round(fm.position) }}</span>
 										<span v-if="fm.lastPercentage !== null" class="encoder-pct"
 											  :style="{ color: encoderRingColor(fm.lastPercentage) }">
 											{{ $display(fm.lastPercentage, 1, '%') }}
@@ -277,6 +261,23 @@
 							</div>
 						</div>
 					</template>
+				</v-tab-item>
+
+				<!-- Slide 2: Tool (riscaldatori + bed + camera) -->
+				<v-tab-item>
+					<div class="tool-scroll">
+						<tools-panel />
+					</div>
+				</v-tab-item>
+
+				<!-- Slide 3: Layer chart -->
+				<v-tab-item eager>
+					<layer-chart />
+				</v-tab-item>
+
+				<!-- Slide 4: Temperature chart -->
+				<v-tab-item eager>
+					<temperature-chart />
 				</v-tab-item>
 
 			</v-tabs-items>
@@ -357,13 +358,13 @@ export default Vue.extend({
 			return "#f44336";                // rosso: oltre ±15%
 		},
 		encoderDashOffset(pct: number | null): number {
-			const circumference = 2 * Math.PI * 30; // r=30 → 188.5
+			const circumference = 2 * Math.PI * 40; // r=40 → 251.3
 			if (pct === null || !isFinite(pct)) return circumference;
 			const fill = Math.min(Math.max(pct, 0), 100) / 100;
 			return circumference * (1 - fill);
 		},
 		positionDashOffset(pos: number): number {
-			const circumference = 2 * Math.PI * 20; // r=20 → 125.66
+			const circumference = 2 * Math.PI * 26; // r=26 → 163.4
 			const fill = Math.min(Math.max(pos, 0), 1023) / 1023;
 			return circumference * (1 - fill);
 		}

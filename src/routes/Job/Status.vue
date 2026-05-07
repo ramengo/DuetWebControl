@@ -15,6 +15,11 @@
 
 		<!-- Portrait Touch Layout -->
 		<v-row v-if="isPortraitTouch" class="mt-0" dense>
+			<!-- Carosello in prima posizione -->
+			<v-col cols="12">
+				<job-carousel-panel />
+			</v-col>
+
 			<!-- Row 1: job-control + babystep — equal height -->
 			<v-col cols="6" class="d-flex">
 				<job-control-panel style="width: 100%;" />
@@ -33,10 +38,6 @@
 							   style="width: 100%; display: block;" />
 				<img v-else src="/img/icons/fabbrix.svg" alt="Fabbrix"
 					 style="width: 80%; max-width: 180px; display: block; opacity: 0.75;" />
-			</v-col>
-
-			<v-col cols="12">
-				<job-carousel-panel />
 			</v-col>
 
 			<v-col cols="12">
