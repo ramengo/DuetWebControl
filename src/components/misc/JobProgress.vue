@@ -1,13 +1,18 @@
 <template>
 	<v-row dense>
-		<v-col cols="12" class="d-flex">
+		<!-- Riga 1: nome file + percentuale -->
+		<v-col cols="12" class="pb-0">
 			<span>{{ printStatus }}</span>
-			<v-spacer />
-			<span>{{ printDetails }}</span>
 		</v-col>
 
-		<v-col cols="12">
-			<v-progress-linear :value="jobProgress * 100" class="my-1" />
+		<!-- Barra verde spessa — separatore visivo -->
+		<v-col cols="12" class="pa-0">
+			<v-progress-linear :value="jobProgress * 100" color="success" height="10" rounded />
+		</v-col>
+
+		<!-- Riga 2: layer + utilizzo filamento -->
+		<v-col v-if="printDetails" cols="12" class="pt-1 d-flex justify-end">
+			<span class="caption">{{ printDetails }}</span>
 		</v-col>
 	</v-row>
 </template>

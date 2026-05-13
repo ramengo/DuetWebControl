@@ -1,7 +1,6 @@
 <style scoped>
 /* ── Card root ─────────────────────────────────────────── */
 .carousel-card {
-	min-height: 480px;
 	display: flex;
 	flex-direction: column;
 }
@@ -16,34 +15,26 @@
 	min-height: 48px !important;
 }
 
-/* ── Body: cresce con il contenuto ─────────────────────── */
+/* ── Body: segue il contenuto senza vincoli ─────────────── */
 .carousel-body {
 	flex: 1 1 auto;
 	display: flex;
 	flex-direction: column;
 }
 
-/* v-tabs-items si adatta all'altezza della slide attiva */
 ::v-deep .carousel-body .v-tabs-items {
 	flex: 1 1 auto;
 }
 
-/* il container interno di Vuetify non forza più height: 100% */
-::v-deep .carousel-body .v-window__container {
-	min-height: 432px; /* 480 - 48px tab bar */
-}
-
-/* ogni slide: almeno 432px, cresce se il contenuto è più alto */
 ::v-deep .carousel-body .v-window-item {
-	min-height: 432px;
 	display: flex;
 	flex-direction: column;
 }
 
-/* grafico: altezza minima per Chart.js, cresce senza limite */
+/* Chart.js richiede un'altezza minima per inizializzare il canvas */
 ::v-deep .carousel-body .v-window-item > .v-card {
 	flex: 1 1 auto;
-	min-height: 432px;
+	min-height: 280px;
 	width: 100%;
 	box-shadow: none !important;
 	border-radius: 0 !important;
@@ -118,8 +109,8 @@
 }
 .encoder-ring-wrap {
 	position: relative;
-	width: 96px;
-	height: 96px;
+	width: 140px;
+	height: 140px;
 }
 .encoder-ring-svg {
 	position: absolute;
@@ -130,20 +121,13 @@
 	position: absolute;
 	inset: 0;
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 }
-.encoder-value {
-	font-size: 0.85rem;
-	font-weight: 700;
-	line-height: 1.1;
-	white-space: nowrap;
-}
 .encoder-pct {
-	font-size: 0.75rem;
-	font-weight: 600;
-	line-height: 1.1;
+	font-size: 1.3rem;
+	font-weight: 700;
+	line-height: 1;
 }
 .encoder-label {
 	font-size: 0.85rem;
@@ -154,20 +138,24 @@
 	font-weight: 600;
 }
 .speed-container {
-	flex: 1 1 0;
-	display: flex;
-	flex-wrap: wrap;
-	align-content: center;
-	justify-content: center;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+	align-items: stretch;
+	padding: 4px 0;
 }
 
 .speed-block {
-	flex: 1 1 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 16px 8px;
+	justify-content: center;
+	padding: 20px 8px;
 	text-align: center;
+	border-right: 1px solid rgba(128, 128, 128, 0.18);
+}
+
+.speed-block:last-child {
+	border-right: none;
 }
 
 .speed-block--clickable {
@@ -175,18 +163,19 @@
 }
 
 .speed-value {
-	font-size: 1.6rem;
+	font-size: 2rem;
 	font-weight: 700;
 	line-height: 1.2;
 	white-space: nowrap;
 }
 
 .speed-label {
-	font-size: 0.65rem;
+	font-size: 0.72rem;
 	text-transform: uppercase;
-	letter-spacing: 0.06em;
-	opacity: 0.6;
-	margin-top: 6px;
+	letter-spacing: 0.07em;
+	opacity: 0.75;
+	margin-top: 8px;
+	font-weight: 500;
 }
 
 .speed-empty {
@@ -302,31 +291,34 @@
 					<div v-if="activeFilamentMonitors.length > 0" class="encoder-section">
 						<div v-for="fm in activeFilamentMonitors" :key="fm.index" class="encoder-block">
 							<div class="encoder-ring-wrap">
-								<svg class="encoder-ring-svg" width="96" height="96" viewBox="0 0 96 96">
-									<circle cx="48" cy="48" r="40" fill="none"
-											stroke="rgba(128,128,128,0.18)" stroke-width="6"/>
-									<circle cx="48" cy="48" r="40" fill="none"
+								<svg class="encoder-ring-svg" width="140" height="140" viewBox="0 0 140 140">
+									<!-- Sfondo anello esterno: lastPercentage -->
+									<circle cx="70" cy="70" r="62" fill="none"
+											stroke="rgba(128,128,128,0.18)" stroke-width="10"/>
+									<!-- Anello esterno: lastPercentage (verde/arancio/rosso) -->
+									<circle cx="70" cy="70" r="62" fill="none"
 											:stroke="encoderRingColor(fm.lastPercentage)"
-											stroke-width="6"
+											stroke-width="10"
 											stroke-linecap="round"
-											:stroke-dasharray="251.3"
+											:stroke-dasharray="389.6"
 											:stroke-dashoffset="encoderDashOffset(fm.lastPercentage)"
-											transform="rotate(-90 48 48)"/>
-									<circle cx="48" cy="48" r="26" fill="none"
-											stroke="rgba(128,128,128,0.18)" stroke-width="5"/>
-									<circle cx="48" cy="48" r="26" fill="none"
+											transform="rotate(-90 70 70)"/>
+									<!-- Sfondo anello interno: position (5px gap dall'anello esterno) -->
+									<circle cx="70" cy="70" r="48" fill="none"
+											stroke="rgba(128,128,128,0.18)" stroke-width="8"/>
+									<!-- Anello interno: position 0–1023, solo visivo -->
+									<circle cx="70" cy="70" r="48" fill="none"
 											stroke="#42a5f5"
-											stroke-width="5"
+											stroke-width="8"
 											stroke-linecap="round"
-											:stroke-dasharray="163.4"
+											:stroke-dasharray="301.6"
 											:stroke-dashoffset="positionDashOffset(fm.position)"
-											transform="rotate(-90 48 48)"/>
+											transform="rotate(-90 70 70)"/>
 								</svg>
 								<div class="encoder-ring-text">
-									<span class="encoder-value">{{ Math.round(fm.position) }}</span>
-									<span v-if="fm.lastPercentage !== null" class="encoder-pct"
+									<span class="encoder-pct"
 										  :style="{ color: encoderRingColor(fm.lastPercentage) }">
-										{{ $display(fm.lastPercentage, 1, '%') }}
+										{{ fm.lastPercentage !== null ? $display(fm.lastPercentage, 1, '%') : '—' }}
 									</span>
 								</div>
 							</div>
@@ -492,13 +484,13 @@ export default Vue.extend({
 			return "#f44336";                // rosso: oltre ±15%
 		},
 		encoderDashOffset(pct: number | null): number {
-			const circumference = 2 * Math.PI * 40; // r=40 → 251.3
+			const circumference = 2 * Math.PI * 62; // r=62 → 389.6
 			if (pct === null || !isFinite(pct)) return circumference;
 			const fill = Math.min(Math.max(pct, 0), 100) / 100;
 			return circumference * (1 - fill);
 		},
 		positionDashOffset(pos: number): number {
-			const circumference = 2 * Math.PI * 26; // r=26 → 163.4
+			const circumference = 2 * Math.PI * 48; // r=48 → 301.6
 			const fill = Math.min(Math.max(pos, 0), 1023) / 1023;
 			return circumference * (1 - fill);
 		},
