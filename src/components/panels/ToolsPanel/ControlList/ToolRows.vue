@@ -131,6 +131,10 @@
 
                     <filament-dialog v-if="toolIndex === 0" :shown.sync="filamentDialogShown"
                                      :runMacros="filamentRunMacros" :tool="filamentDialogTool" />
+                    <confirm-dialog v-if="toolIndex === 0" :shown.sync="clearConfirmShown"
+                                    :title="$t('panel.tools.clearFilamentConfirmTitle')"
+                                    :prompt="$t('panel.tools.clearFilamentConfirmPrompt')"
+                                    @confirmed="confirmClearFilament" />
                 </tr>
 
                 <!-- Divider -->
@@ -326,16 +330,26 @@ async function unloadFilament(tool: Tool) {
     }
 }
 
-async function clearFilament(tool: Tool) {
+const clearConfirmShown = ref(false);
+const clearConfirmTool = ref<Tool | null>(null);
+
+function clearFilament(tool: Tool) {
     if (busyTool.value !== null || disabled.value) {
         return;
     }
+    clearConfirmTool.value = tool;
+    clearConfirmShown.value = true;
+}
 
+async function confirmClearFilament() {
+    const tool = clearConfirmTool.value;
+    if (!tool) return;
     busyTool.value = tool;
     try {
         await store.dispatch("machine/sendCode", `T${tool.number} P0\nM702 P0`);
     } finally {
         busyTool.value = null;
+        clearConfirmTool.value = null;
     }
 }
 

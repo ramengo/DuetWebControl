@@ -9,7 +9,7 @@
 
 ### Filamento
 - [ ] Aggiungere voce "Filamento non presente" anche quando il filamento NON è caricato (ramo `v-else` in ToolRows.vue — link diretto senza dropdown)
-- [ ] Aggiungere dialog di conferma prima di eseguire `clearFilament` (per evitare click accidentali)
+- [x] Aggiungere dialog di conferma prima di eseguire `clearFilament` (per evitare click accidentali)
 - [ ] Supporto multi-tool: pulsante bulk "azzera tutti i filamenti" per reset rapido dopo cambio configurazione
 
 ### Porta / Interblocco

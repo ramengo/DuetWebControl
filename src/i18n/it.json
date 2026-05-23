@@ -893,6 +893,8 @@
       "changeFilament": "Cambia Filamento",
       "unloadFilament": "Scarica Filamento",
       "clearFilament": "Filamento non presente",
+      "clearFilamentConfirmTitle": "Conferma",
+      "clearFilamentConfirmPrompt": "Segnare il filamento come non presente senza eseguire macro di scarico?",
       "heater": "Riscaldatore {0}",
       "current": "Corrente",
       "active": "Attivo",

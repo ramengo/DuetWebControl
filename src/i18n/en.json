@@ -897,6 +897,8 @@
       "changeFilament": "Change Filament",
       "unloadFilament": "Unload Filament",
       "clearFilament": "Set filament not present",
+      "clearFilamentConfirmTitle": "Confirm",
+      "clearFilamentConfirmPrompt": "Mark filament as not present without running unload macros?",
       "heater": "Heater {0}",
       "current": "Current",
       "active": "Active",
