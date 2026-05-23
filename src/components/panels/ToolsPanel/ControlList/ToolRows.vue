@@ -63,6 +63,10 @@
                                             <v-icon class="mr-1">mdi-arrow-up</v-icon>
                                             {{ $t("panel.tools.unloadFilament") }}
                                         </v-list-item>
+                                        <v-list-item @click="clearFilament(tool)">
+                                            <v-icon class="mr-1">mdi-cancel</v-icon>
+                                            {{ $t("panel.tools.clearFilament") }}
+                                        </v-list-item>
                                     </v-list>
                                 </v-menu>
                                 <a v-else href="javascript:void(0)" @click="showFilamentDialog(tool, true)" :class="{ disabled: disabled }">
@@ -317,6 +321,19 @@ async function unloadFilament(tool: Tool) {
         }
         code += "M702";
         await store.dispatch("machine/sendCode", code);
+    } finally {
+        busyTool.value = null;
+    }
+}
+
+async function clearFilament(tool: Tool) {
+    if (busyTool.value !== null || disabled.value) {
+        return;
+    }
+
+    busyTool.value = tool;
+    try {
+        await store.dispatch("machine/sendCode", `T${tool.number} P0\nM702 P0`);
     } finally {
         busyTool.value = null;
     }

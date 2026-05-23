@@ -896,6 +896,7 @@
       "loadFilament": "Load Filament",
       "changeFilament": "Change Filament",
       "unloadFilament": "Unload Filament",
+      "clearFilament": "Set filament not present",
       "heater": "Heater {0}",
       "current": "Current",
       "active": "Active",

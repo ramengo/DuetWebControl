@@ -892,6 +892,7 @@
       "loadFilament": "Carica Filamento",
       "changeFilament": "Cambia Filamento",
       "unloadFilament": "Scarica Filamento",
+      "clearFilament": "Filamento non presente",
       "heater": "Riscaldatore {0}",
       "current": "Corrente",
       "active": "Attivo",

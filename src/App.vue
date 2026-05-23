@@ -66,6 +66,15 @@
 
 			<code-input class="mx-3 hidden-sm-and-down" />
 
+			<v-tooltip v-if="hasPendingMessage" bottom>
+				<template #activator="{ on, attrs }">
+					<v-btn icon color="warning" class="mx-1" v-bind="attrs" v-on="on" @click="sendM292">
+						<v-icon>mdi-bell-ring</v-icon>
+					</v-btn>
+				</template>
+				<span>Invia M292 — riprendi dopo messaggio</span>
+			</v-tooltip>
+
 			<v-spacer />
 
 			<upload-btn target="start" :elevation="1" class="mr-3 hidden-sm-and-down" />
@@ -206,6 +215,10 @@ export default Vue.extend({
 		},
 		bedPresent(): boolean {
 			return !(store.state.machine.model.sensors.gpIn[11]?.value ?? false);
+		},
+		hasPendingMessage(): boolean {
+			const mb = store.state.machine.model.state.messageBox;
+			return mb !== null && mb.mode !== null;
 		}
 	},
 	data() {
@@ -220,6 +233,11 @@ export default Vue.extend({
 			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
 			const code = latch ? "M1203" : "M1202";
 			await store.dispatch("machine/sendCode", code);
+		},
+		async sendM292() {
+			const mb = store.state.machine.model.state.messageBox;
+			const code = (mb?.seq !== null && mb?.seq !== undefined) ? `M292 S${mb.seq}` : "M292";
+			await store.dispatch("machine/sendCode", { code, noWait: true });
 		},
 		isExpanded(category: MenuCategory): boolean {
 			if (this.$vuetify.breakpoint.smAndDown) {
