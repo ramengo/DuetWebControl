@@ -137,6 +137,21 @@
 	margin-top: 4px;
 	font-weight: 600;
 }
+.encoder-vars {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 6px;
+	gap: 3px;
+}
+.encoder-var-line {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 0.78rem;
+	opacity: 0.85;
+	font-variant-numeric: tabular-nums;
+}
 .speed-container {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
@@ -323,6 +338,16 @@
 								</div>
 							</div>
 							<div class="encoder-label">E{{ fm.index }}</div>
+							<div class="encoder-vars">
+								<span class="encoder-var-line">
+									<v-icon x-small style="opacity:0.55">mdi-printer-3d-nozzle</v-icon>
+									{{ globalNozzleDia(fm.index) }} mm
+								</span>
+								<span class="encoder-var-line">
+									<v-icon x-small style="opacity:0.55">mdi-circle-outline</v-icon>
+									{{ globalFilamentDia(fm.index) }} mm
+								</span>
+							</div>
 						</div>
 					</div>
 				</v-tab-item>
@@ -506,6 +531,16 @@ export default Vue.extend({
 				return ["green", "darken-2"];
 			}
 			return [];
+		},
+		globalNozzleDia(index: number): string {
+			const key = index === 0 ? 't0NozzleDia' : 't1NozzleDia';
+			const val = this.model.global.get(key);
+			return (val !== null && val !== undefined) ? String(val) : '—';
+		},
+		globalFilamentDia(index: number): string {
+			const key = index === 0 ? 'filamentDiameterT0' : 'filamentDiameterT1';
+			const val = this.model.global.get(key);
+			return (val !== null && val !== undefined) ? String(val) : '—';
 		}
 	}
 });
