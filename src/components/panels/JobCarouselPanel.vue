@@ -347,6 +347,10 @@
 									<v-icon x-small style="opacity:0.55">mdi-circle-outline</v-icon>
 									{{ globalFilamentDia(fm.index) }} mm
 								</span>
+								<span class="encoder-var-line">
+									<v-icon x-small style="opacity:0.55">mdi-spool</v-icon>
+									{{ loadedFilament(fm.index) }}
+								</span>
 							</div>
 						</div>
 					</div>
@@ -541,6 +545,11 @@ export default Vue.extend({
 			const key = index === 0 ? 'filamentDiameterT0' : 'filamentDiameterT1';
 			const val = this.model.global.get(key);
 			return (val !== null && val !== undefined) ? String(val) : '—';
+		},
+		loadedFilament(index: number): string {
+			const extruder = this.model.move.extruders[index];
+			if (!extruder) return '—';
+			return extruder.filament || '—';
 		}
 	}
 });
