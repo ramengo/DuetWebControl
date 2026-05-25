@@ -7,9 +7,9 @@
 
 		<v-card-text class="text-center pb-2">
 			<v-row dense>
-				<v-col class="d-flex flex-column">
+				<v-col v-if="filamentTimeLeft !== null" class="d-flex flex-column">
 					<strong>{{ $t("panel.jobEstimations.filament") }}</strong>
-					<span>{{ $displayTime(timesLeft.filament) }}</span>
+					<span>{{ $displayTime(filamentTimeLeft) }}</span>
 				</v-col>
 
 				<v-col class="d-flex flex-column">
@@ -48,6 +48,24 @@ export default Vue.extend({
 	computed: {
 		isPrinting(): boolean { return isPrinting(store.state.machine.model.state.status); },
 		timesLeft(): TimesLeft { return store.state.machine.model.job.timesLeft; },
+		filamentTimeLeft(): number | null {
+			if (this.timesLeft.filament !== null) {
+				return this.timesLeft.filament;
+			}
+			const rawExtrusion = store.state.machine.model.job.rawExtrusion;
+			const duration = store.state.machine.model.job.duration;
+			const file = store.state.machine.model.job.file;
+			if (rawExtrusion !== null && rawExtrusion > 0 &&
+				duration !== null && duration > 0 &&
+				file !== null && file.filament.length > 0) {
+				const totalFilament = file.filament.reduce((a: number, b: number) => a + b, 0);
+				const remaining = totalFilament - rawExtrusion;
+				if (remaining <= 0) { return 0; }
+				const rate = rawExtrusion / duration;
+				return Math.round(remaining / rate);
+			}
+			return null;
+		},
 		slicerTimeLeft(): number | null {
 			if (store.state.machine.model.job.timesLeft.slicer !== null) {
 				return store.state.machine.model.job.timesLeft.slicer;
