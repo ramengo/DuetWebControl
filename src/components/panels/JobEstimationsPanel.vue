@@ -7,7 +7,7 @@
 
 		<v-card-text class="text-center pb-2">
 			<v-row dense>
-				<v-col v-if="timesLeft.filament !== null" class="d-flex flex-column">
+				<v-col class="d-flex flex-column">
 					<strong>{{ $t("panel.jobEstimations.filament") }}</strong>
 					<span>{{ $displayTime(timesLeft.filament) }}</span>
 				</v-col>
