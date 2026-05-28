@@ -198,20 +198,23 @@ export default Vue.extend({
 		doorColor(): string {
 			const interlock = store.state.machine.model.sensors.gpIn[9]?.value ?? false;
 			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
-			if (!interlock && !latch) return "success";   // porta aperta
-			if (interlock && latch)   return "error";     // interblocco attivato, chiusa
-			return "warning";                             // interblocco disattivato, chiusa
+			if (!interlock)           return "error";    // porta aperta
+			if (interlock && latch)   return "success";  // porta chiusa e bloccata
+			return "warning";                            // porta chiusa ma sbloccata
 		},
 		doorIcon(): string {
+			const interlock = store.state.machine.model.sensors.gpIn[9]?.value ?? false;
 			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
-			return latch ? "mdi-lock" : "mdi-lock-open-variant";
+			if (!interlock)         return "mdi-door-open";
+			if (interlock && latch) return "mdi-lock";
+			return "mdi-lock-open-variant";
 		},
 		doorTooltip(): string {
 			const interlock = store.state.machine.model.sensors.gpIn[9]?.value ?? false;
 			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
-			if (!interlock && !latch) return "Porta aperta";
-			if (interlock && latch)   return "Interblocco attivato — porta chiusa";
-			return "Interblocco disattivato — porta chiusa";
+			if (!interlock)           return "Porta aperta";
+			if (interlock && latch)   return "Porta chiusa — bloccata";
+			return "Porta chiusa — sbloccata";
 		},
 		bedPresent(): boolean {
 			return !(store.state.machine.model.sensors.gpIn[11]?.value ?? false);
