@@ -79,7 +79,7 @@ export default class {
 
       //Create BJS Scene
       this.scene = new Scene(this.engine);
-      this.scene.clearColor = new Color3(0, 0, 0);
+      this.scene.clearColor = new Color4(0, 0, 0, 1);
 
       //Setup camera control
       this.orbitCamera = new ArcRotateCamera('Camera', 0, 0, 250, new Vector3(0, 0, 0), this.scene);
@@ -239,12 +239,14 @@ export default class {
     if (colorScheme === 'terrain') {
       z = Math.max(Math.min(z, this.maxVisualizationZ), -this.maxVisualizationZ);
       const hue = 240 - ((z + this.maxVisualizationZ) / this.maxVisualizationZ) * 120;
-      return Color3.FromHexString(this.hslToHex(hue, 100, 45));
+      const c = Color3.FromHexString(this.hslToHex(hue, 100, 45));
+      return new Color4(c.r, c.g, c.b, 1);
     }
 
     // Default color scheme (i.e. the worse the redder, symmetric)
     const hue = 120 - (Math.min(Math.abs(z), this.maxVisualizationZ) / this.maxVisualizationZ) * 120;
-    return Color3.FromHexString(this.hslToHex(hue, 100, 45));
+    const c = Color3.FromHexString(this.hslToHex(hue, 100, 45));
+    return new Color4(c.r, c.g, c.b, 1);
   }
 
   hslToHex(h, s, l) {

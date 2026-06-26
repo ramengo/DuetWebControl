@@ -63,12 +63,11 @@ h1 {
 
 		<v-col :class="{ 'pa-1': $vuetify.breakpoint.xs }" class="flex-grow-1" cols="12" lg="auto" order="0" order-lg="0">
 			<div class="heightmap-container" ref="container" v-resize="resize">
-				<!-- h1 v-show="!ready" class="text-center">
-					{{ loading ? $t('generic.loading') : (errorMessage ? errorMessage : $t('plugins.heightmap.notAvailable')) }}
-				</h1-->
+				<h1 v-if="!ready" class="text-center" style="color:#fff;padding:16px;font-size:1rem;word-break:break-word;">
+					{{ errorMessage || (loading ? $t('generic.loading') : $t('plugins.heightmap.notAvailable')) }}
+				</h1>
 
 				<div class="canvas-container">
-					<!-- v-show="ready" -->
 					<canvas @mousemove="canvasMouseMove" ref="canvas"></canvas>
 					<canvas class="legend" ref="legend" width="80"></canvas>
 				</div>
@@ -381,8 +380,14 @@ export default {
 			this.area = probeRadius ? probeRadius * probeRadius * Math.PI : Math.abs((xMax - xMin) * (yMax - yMin));
 			this.rmsError = Math.sqrt(this.rmsError * this.numPoints - this.meanError * this.meanError) / this.numPoints;
 			this.meanError = this.meanError / this.numPoints;
-			heightMapViewer.renderHeightMap(points, this.invertZ, this.colorScheme, this.deviationColoring);
-			heightMapViewer.drawLegend(this.$refs.legend, this.colorScheme, this.invertZ, this.xLabel, this.yLabel);
+			try {
+				heightMapViewer.renderHeightMap(points, this.invertZ, this.colorScheme, this.deviationColoring);
+				heightMapViewer.drawLegend(this.$refs.legend, this.colorScheme, this.invertZ, this.xLabel, this.yLabel);
+			} catch (e) {
+				const msg = (e && (e.message || String(e))) || 'Unknown error';
+				this.errorMessage = 'Render error: ' + msg;
+				console.error('[HeightMap] render error:', e);
+			}
 		},
 		canvasMouseMove(e) {
 			this.tooltip.x = e.clientX;
@@ -531,6 +536,7 @@ export default {
 		this.isActive = false;
 	},
 	async mounted() {
+		try {
 		const size = this.resize();
 		if (size.height <= 0) {
 			size.height = 1;
@@ -566,14 +572,33 @@ export default {
 		// Kill the wheel on the canvas
 		this.$refs.canvas.addEventListener('wheel', evt => evt.preventDefault());
 
-		// Trigger resize event once more to avoid rendering glitches
+		// Use ResizeObserver to handle canvas sizing when the container gets its real
+		// dimensions (critical on Pi kiosk where window.resize never fires).
+		if (typeof ResizeObserver !== 'undefined') {
+			this._resizeObserver = new ResizeObserver(() => {
+				if (this.isActive) {
+					this.resize();
+				}
+			});
+			this._resizeObserver.observe(this.$refs.container);
+		}
+		// Fallback: trigger resize after 1 s for browsers without ResizeObserver
 		setTimeout(this.resize.bind(this), 1000);
 		this.ready = true;
 
+		} catch (e) {
+			const msg = (e && (e.message || String(e))) || 'Unknown error';
+			this.errorMessage = 'HeightMap init error: ' + msg;
+			console.error('[HeightMap] mount error:', e);
+		}
 	},
 	beforeDestroy() {
 		// No longer keep track of file changes
 		this.$root.$off(Events.filesOrDirectoriesChanged, this.filesOrDirectoriesChanged);
+		if (this._resizeObserver) {
+			this._resizeObserver.disconnect();
+			this._resizeObserver = null;
+		}
 		heightMapViewer.dispose();
 	},
 	watch: {

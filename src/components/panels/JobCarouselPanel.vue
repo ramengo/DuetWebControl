@@ -94,7 +94,8 @@
 .encoder-section {
 	width: 100%;
 	display: flex;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
+	overflow-x: auto;
 	justify-content: center;
 	border-top: 1px solid rgba(128,128,128,0.2);
 	margin-top: 4px;
@@ -537,12 +538,14 @@ export default Vue.extend({
 			return [];
 		},
 		globalNozzleDia(index: number): string {
-			const key = index === 0 ? 't0NozzleDia' : 't1NozzleDia';
+			const keys = ['t0NozzleDia', 't1NozzleDia', 't2NozzleDia', 't3NozzleDia', 't4NozzleDia'];
+			const key = keys[index] ?? `t${index}NozzleDia`;
 			const val = this.model.global.get(key);
 			return (val !== null && val !== undefined) ? String(val) : '—';
 		},
 		globalFilamentDia(index: number): string {
-			const key = index === 0 ? 'filamentDiameterT0' : 'filamentDiameterT1';
+			const keys = ['filamentDiameterT0', 'filamentDiameterT1', 'filamentDiameterT2', 'filamentDiameterT3', 'filamentDiameterT4'];
+			const key = keys[index] ?? `filamentDiameterT${index}`;
 			const val = this.model.global.get(key);
 			return (val !== null && val !== undefined) ? String(val) : '—';
 		},
