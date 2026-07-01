@@ -6,32 +6,6 @@
 }
 
 /* ============================= */
-/* COLORI DINAMICI (NUOVI)       */
-/* ============================= */
-.msg-info { 
-    /*background-color: #e3f2fd !important; /* Blu chiaro */
-    border-left: 10vw solid #f38321 !important; 
-}
-.msg-warning { 
-    /*background-color: #ffebee !important; /* Rosso chiaro */
-    border-left: 10vw solid #f44336 !important; 
-}
-.msg-success { 
-    /*background-color: #e8f5e9 !important; /* Verde chiaro */
-    border-left: 10vw solid #4caf50 !important; 
-}
-
-.msg-move { 
-    /*background-color: #e8f5e9 !important; /* Verde chiaro */
-    border-left: 10vw solid #13cccf !important; 
-}
-
-/* Forzatura colore testo per stati dinamici */
-.msg-info *, .msg-warning *, .msg-success * {
-    color: black !important;
-}
-
-/* ============================= */
 /* TITOLO */
 /* ============================= */
 .m291-touch .v-card__title,

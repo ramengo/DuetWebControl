@@ -234,6 +234,45 @@
 	line-height: 1.3;
 	white-space: nowrap;
 }
+
+/* ── Sezione info tool (tab Speed) ──────────────────────── */
+.tools-info-section {
+	padding: 4px 4px 2px;
+}
+.tools-info-grid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+	row-gap: 8px;
+}
+.tool-info-cell {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 90px;
+	padding: 2px 8px;
+}
+.tool-info-label {
+	font-size: 0.68rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	opacity: 0.55;
+	line-height: 1.2;
+	margin-bottom: 3px;
+}
+.tool-info-row {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+.tool-info-value {
+	font-size: 1.15rem;
+	font-weight: 600;
+	line-height: 1.3;
+	white-space: nowrap;
+}
 </style>
 
 <template>
@@ -279,6 +318,31 @@
 					</div>
 
 					<v-divider v-if="visibleAxes.length > 0 || activeExtruders.length > 0" class="my-1" />
+
+					<!-- Info tool inizializzati: nozzle, filamento, materiale -->
+					<div v-if="initializedTools.length > 0" class="tools-info-section">
+						<div class="tools-info-grid">
+							<div v-for="tool in initializedTools" :key="`tin-${tool.number}`" class="tool-info-cell">
+								<div class="tool-info-label">
+									T{{ tool.number }}
+								</div>
+								<div class="tool-info-row">
+									<v-icon x-small style="opacity:0.55">mdi-printer-3d-nozzle</v-icon>
+									<span class="tool-info-value">{{ globalNozzleDia(tool.number) }}</span>
+								</div>
+								<div class="tool-info-row">
+									<v-icon x-small style="opacity:0.55">mdi-circle-outline</v-icon>
+									<span class="tool-info-value">{{ globalFilamentDia(tool.number) }}</span>
+								</div>
+								<div class="tool-info-row">
+									<v-icon x-small style="opacity:0.55">mdi-spool</v-icon>
+									<span class="tool-info-value">{{ loadedFilament(tool.filamentExtruder) }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<v-divider v-if="initializedTools.length > 0" class="my-1" />
 
 					<!-- Velocità -->
 					<div v-if="speedsAvailable || topSpeedAvailable || (extrusionAvailable && isFFForUnset)"
@@ -342,11 +406,11 @@
 							<div class="encoder-vars">
 								<span class="encoder-var-line">
 									<v-icon x-small style="opacity:0.55">mdi-printer-3d-nozzle</v-icon>
-									{{ globalNozzleDia(fm.index) }} mm
+									{{ globalNozzleDia(fm.index) }}
 								</span>
 								<span class="encoder-var-line">
 									<v-icon x-small style="opacity:0.55">mdi-circle-outline</v-icon>
-									{{ globalFilamentDia(fm.index) }} mm
+									{{ globalFilamentDia(fm.index) }}
 								</span>
 								<span class="encoder-var-line">
 									<v-icon x-small style="opacity:0.55">mdi-spool</v-icon>
@@ -425,7 +489,7 @@
 </template>
 
 <script lang="ts">
-import ObjectModel, { Axis, MachineMode, Probe, ProbeType } from "@duet3d/objectmodel";
+import ObjectModel, { Axis, MachineMode, Probe, ProbeType, Tool } from "@duet3d/objectmodel";
 import Vue from "vue";
 
 import store from "@/store";
@@ -460,6 +524,9 @@ export default Vue.extend({
 		},
 		visibleAxes(): Array<Axis> {
 			return this.model.move.axes.filter((axis: Axis) => axis.visible);
+		},
+		initializedTools(): Array<Tool> {
+			return this.model.tools.filter((tool): tool is Tool => tool !== null);
 		},
 		activeExtruders(): Array<{ index: number; position: number }> {
 			return this.model.move.extruders
@@ -538,8 +605,8 @@ export default Vue.extend({
 			return [];
 		},
 		globalNozzleDia(index: number): string {
-			const keys = ['t0NozzleDia', 't1NozzleDia', 't2NozzleDia', 't3NozzleDia', 't4NozzleDia'];
-			const key = keys[index] ?? `t${index}NozzleDia`;
+			const keys = ['nozzleDiameterT0', 'nozzleDiameterT1', 'nozzleDiameterT2', 'nozzleDiameterT3', 'nozzleDiameterT4'];
+			const key = keys[index] ?? `nozzleDiameterT${index}`;
 			const val = this.model.global.get(key);
 			return (val !== null && val !== undefined) ? String(val) : '—';
 		},
