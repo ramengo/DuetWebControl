@@ -191,33 +191,33 @@ export default Vue.extend({
 			return this.$vuetify.breakpoint.smAndDown ? 275 : 256;
 		},
 		doorOpen(): boolean {
-			const interlock = store.state.machine.model.sensors.gpIn[9]?.value ?? false;
-			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
+			const interlock = store.state.machine.model.sensors.gpIn[12]?.value ?? false;
+			const latch = store.state.machine.model.sensors.gpIn[13]?.value ?? false;
 			return !interlock && !latch;
 		},
 		doorColor(): string {
-			const interlock = store.state.machine.model.sensors.gpIn[9]?.value ?? false;
-			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
+			const interlock = store.state.machine.model.sensors.gpIn[12]?.value ?? false;
+			const latch = store.state.machine.model.sensors.gpIn[13]?.value ?? false;
 			if (!interlock)           return "error";    // porta aperta
 			if (interlock && latch)   return "success";  // porta chiusa e bloccata
 			return "warning";                            // porta chiusa ma sbloccata
 		},
 		doorIcon(): string {
-			const interlock = store.state.machine.model.sensors.gpIn[9]?.value ?? false;
-			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
+			const interlock = store.state.machine.model.sensors.gpIn[12]?.value ?? false;
+			const latch = store.state.machine.model.sensors.gpIn[13]?.value ?? false;
 			if (!interlock)         return "mdi-door-open";
 			if (interlock && latch) return "mdi-lock";
 			return "mdi-lock-open-variant";
 		},
 		doorTooltip(): string {
-			const interlock = store.state.machine.model.sensors.gpIn[9]?.value ?? false;
-			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
+			const interlock = store.state.machine.model.sensors.gpIn[12]?.value ?? false;
+			const latch = store.state.machine.model.sensors.gpIn[13]?.value ?? false;
 			if (!interlock)           return "Porta aperta";
 			if (interlock && latch)   return "Porta chiusa — bloccata";
 			return "Porta chiusa — sbloccata";
 		},
 		bedPresent(): boolean {
-			return !(store.state.machine.model.sensors.gpIn[11]?.value ?? false);
+			return !(store.state.machine.model.sensors.gpIn[14]?.value ?? false);
 		},
 		hasPendingMessage(): boolean {
 			const mb = store.state.machine.model.state.messageBox;
@@ -233,7 +233,7 @@ export default Vue.extend({
 	},
 	methods: {
 		async onDoorBtnClick() {
-			const latch = store.state.machine.model.sensors.gpIn[10]?.value ?? false;
+			const latch = store.state.machine.model.sensors.gpIn[13]?.value ?? false;
 			const code = latch ? "M1203" : "M1202";
 			await store.dispatch("machine/sendCode", code);
 		},

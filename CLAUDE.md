@@ -114,14 +114,21 @@ computed: {
 }
 ```
 
-Sensori I/O usati nel branch:
+Sensori I/O usati nel branch. Indici allineati a M950 Jn in config.g — **attenzione**: i commenti
+di config.g (FabbrixOS) etichettano J12 come "DOOR LOCK" e J13 come "DOOR PRESENCE", ma il
+comportamento verificato sull'hardware reale (test diretto con M409 nei 3 stati fisici) è
+**invertito** rispetto a quell'etichetta:
 
-| Pin | Uso |
-|---|---|
-| `sensors.gpIn[9]` | Interlock fisico porta |
-| `sensors.gpIn[10]` | Latch software porta |
-| `sensors.gpIn[11]` | Presenza piano |
-| `sensors.filamentMonitors` | Encoder filamento (position, lastPercentage) |
+| Pin | Uso reale (verificato su hardware) | Valori |
+|---|---|---|
+| `sensors.gpIn[12]` | Presenza/chiusura porta (interlock) | 0 = aperta, 1 = chiusa |
+| `sensors.gpIn[13]` | Blocco/serratura porta (latch) | 0 = sbloccata, 1 = bloccata |
+| `sensors.gpIn[14]` | PEI PRESENCE — presenza piano (1 = assente) | |
+| `sensors.filamentMonitors` | Encoder filamento (position, lastPercentage) | |
+
+Le macro firmware lato Duet (`door_check.g`, `trigger8.g`, `trigger9.g`) usano ancora
+l'etichettatura di config.g (gpIn[13]=presenza, gpIn[12]=blocco) — se risulta confermato che è
+invertita anche lì, andranno corrette in FabbrixOS, non solo qui in DWC.
 
 ---
 
@@ -239,8 +246,8 @@ Remote: `https://github.com/ramengo/DuetWebControl`
 | Componente | File | Note |
 |---|---|---|
 | `job-carousel-panel` | `panels/JobCarouselPanel.vue` | Tab Layer/Temp/Tool/Speed, 50vh |
-| Porta indicator | in `App.vue` | gpIn[9,10], M1202/M1203 |
-| Piano indicator | in `App.vue` | gpIn[11] |
+| Porta indicator | in `App.vue` | gpIn[12,13], M1202/M1203 |
+| Piano indicator | in `App.vue` | gpIn[14] |
 | M291 touch | `dialogs/MessageBoxDialog.vue` | Full-screen portrait |
 
 ---
@@ -249,5 +256,5 @@ Remote: `https://github.com/ramengo/DuetWebControl`
 
 - **Non toccare** il layout `v-else` (desktop): il branch garantisce zero regressioni upstream.
 - I grafici interni al carousel necessitano `flex: 1 1 0` + `height: 100%` per propagare l'altezza.
-- Il toggle porta legge `gpIn[10]` (latch) per decidere M1202/M1203 — **non** `doorOpen`.
+- Il toggle porta legge `gpIn[13]` (latch/blocco, verificato su hardware) per decidere M1202/M1203 — **non** `doorOpen`.
 - `JobControlPanel` non contiene più la thumbnail (spostata in `Status.vue`).
