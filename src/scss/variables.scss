@@ -7,6 +7,54 @@
 	display: none;
 }
 
+/* Nessun effetto/transizione in tutta l'app (richiesta esplicita: interfaccia touch reattiva
+   senza animazioni). Le sole eccezioni sono gli indicatori di caricamento indeterminati, che
+   restano animati perché comunicano uno stato funzionale reale ("in corso"), non un effetto
+   estetico — vedi override sotto. */
+*,
+*::before,
+*::after {
+	/* Durata esattamente 0 (non un valore "quasi zero"): Vue riconosce una transizione/animazione
+	   a durata 0 come assente e risolve subito in modo sincrono, senza attendere l'evento di
+	   fine — esattamente come un elemento che non ha mai avuto transizioni CSS. Un valore
+	   diverso da zero farebbe credere a Vue che esista una transizione reale anche dove prima
+	   non c'era nessuna definizione CSS (es. l'espansione dei gruppi nel drawer laterale, gestita
+	   via JS/requestAnimationFrame da Vuetify), causando race condition e contenuti che non si
+	   espandono più. */
+	animation-duration: 0s !important;
+	animation-delay: 0s !important;
+	transition-duration: 0s !important;
+	transition-delay: 0s !important;
+	scroll-behavior: auto !important;
+}
+
+.v-progress-circular--indeterminate > svg,
+.v-progress-circular--indeterminate .v-progress-circular__overlay {
+	animation-duration: 1.4s !important;
+	animation-delay: 0s !important;
+}
+
+.v-progress-linear__indeterminate--active .long,
+.v-progress-linear__indeterminate--active .short {
+	animation-duration: 2.2s !important;
+	animation-delay: 0s !important;
+}
+
+.v-progress-linear--query .v-progress-linear__indeterminate--active .long,
+.v-progress-linear--query .v-progress-linear__indeterminate--active .short {
+	animation-duration: 2s !important;
+}
+
+.v-progress-linear__stream {
+	animation-duration: 0.25s !important;
+	animation-delay: 0s !important;
+}
+
+.mdi-spin::before {
+	animation-duration: 2s !important;
+	animation-delay: 0s !important;
+}
+
 $autocomplete-focused-input: 32px;
 
 $card-title-font-size: 1rem;

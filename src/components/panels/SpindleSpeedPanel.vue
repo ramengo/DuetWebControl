@@ -14,30 +14,12 @@ td {
 	background-color: #00bb00;
 }
 
-.spindle-on {
-	animation: spindle-on-pulse 5s infinite;
-}
-
 .show {
 	visibility: visible;
 }
 
 .hide {
 	visibility: hidden;
-}
-
-@keyframes spindle-on-pulse {
-	0% {
-		background-color: #00aa00;
-	}
-
-	50% {
-		background-color: #00ff00;
-	}
-
-	100% {
-		background-color: #00aa00;
-	}
 }
 </style>
 

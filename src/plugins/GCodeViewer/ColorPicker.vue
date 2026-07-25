@@ -47,7 +47,6 @@ export default {
 				height: "30px",
 				width: "30px",
 				borderRadius: menu ? "50%" : "4px",
-				transition: "border-radius 200ms ease-in-out",
 			};
 		},
 	},

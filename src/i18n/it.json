@@ -877,7 +877,8 @@
       "noStatus": "Nessuno Stato",
       "extrusionRate": "Tasso di Estrusione",
       "volumetricFlow": "Flusso Volumetrico",
-      "virtualEPos": "Posizione Estrusore Virtuale"
+      "virtualEPos": "Posizione Estrusore Virtuale",
+      "filamentSensor": "Sensore Filamento"
     },
     "tools": {
       "caption": "Utensili",

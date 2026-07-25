@@ -881,7 +881,8 @@
       "noStatus": "No Status",
       "extrusionRate": "Extrusion Rate",
       "volumetricFlow": "Volumetric Flow",
-      "virtualEPos": "Virtual Extruder Position"
+      "virtualEPos": "Virtual Extruder Position",
+      "filamentSensor": "Filament Sensor"
     },
     "tools": {
       "caption": "Tools",

@@ -39,7 +39,7 @@
 
 <template>
 	<v-dialog :value="shown" @input="$emit('update:shown', $event)" fullscreen hide-overlay persistent no-click-animation
-			  transition="dialog-bottom-transition">
+			  transition="">
 		<v-card class="d-flex flex-column">
 			<v-app-bar flat dark color="primary" class="flex-grow-0 flex-shrink-1">
 				<v-btn icon dark @click="close(false)">

@@ -84,10 +84,6 @@
 	position: absolute;
 	top: 5px;
 	left: 5px;
-	-webkit-transition-duration: 0.3s;
-	-moz-transition-duration: 0.3s;
-	-o-transition-duration: 0.3s;
-	transition-duration: 0.3s;
 }
 
 .button-container-drawer {

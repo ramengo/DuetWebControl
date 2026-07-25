@@ -25,7 +25,6 @@
 	color: black !important;
     font-size: 1.5em !important;
     line-height: 1.4 !important;
-    transition: background-color 0.3s; /* Transizione fluida */
 }
 
 .m291-touch .v-dialog > .v-card > .v-card__text {

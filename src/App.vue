@@ -176,7 +176,12 @@ export default Vue.extend({
 			return !this.$vuetify.breakpoint.lgAndUp;  // < 1264px (lg breakpoint)
 		},
 		showBottomNavigation(): boolean {
-			return (this.$vuetify.breakpoint.mobile || this.isPortraitTouch) &&
+			// In visualizzazione verticale (touch portrait) niente menù laterale: si usa sempre
+			// la barra di navigazione in basso, indipendentemente dall'impostazione utente.
+			if (this.isPortraitTouch) {
+				return true;
+			}
+			return this.$vuetify.breakpoint.mobile &&
 				   !this.$vuetify.breakpoint.xsOnly &&
 				   store.state.settings.bottomNavigation;
 		},

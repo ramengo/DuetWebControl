@@ -2,40 +2,6 @@
 .v-snack {
 	z-index: 1 !important;
 }
-
-@keyframes animate-progress {
-	from {
-		width: 0%;
-	}
-
-	to {
-		width: 100%;
-	}
-}
-
-@keyframes animate-progress-bg {
-	from {
-		left: 0%;
-		width: 100%;
-	}
-
-	to {
-		left: 100%;
-		width: 0%;
-	}
-}
-
-.animate-progress .v-progress-linear__determinate {
-	animation-name: "animate-progress";
-	animation-duration: 5s;
-	animation-timing-function: linear;
-}
-
-.animate-progress .v-progress-linear__background {
-	animation-name: "animate-progress-bg";
-	animation-duration: 5s;
-	animation-timing-function: linear;
-}
 </style>
 
 <style scoped>
@@ -53,7 +19,7 @@
 </style>
 
 <template>
-	<v-fade-transition>
+	<div>
 		<v-snackbar v-if="fileTransferNotification !== null" :value="true"
 					:style="{ 'padding-bottom': `${$vuetify.application.bottom + 8}px` }" :timeout="-1" color="info">
 			<v-progress-linear :color="progressColor" :indeterminate="fileTransferNotification.progress === 0" striped
@@ -84,8 +50,7 @@
 					:style="{ 'padding-bottom': `${$vuetify.application.bottom + 8}px` }"
 					:class="{ pointer: !!notification.route }" @click.native="clicked">
 			<v-progress-linear v-if="animateProgress" ref="progressBar" :color="progressColor"
-							   :indeterminate="notification.progress === 0" :value="100" class="progress-bar"
-							   :class="{ 'animate-progress': animateProgress }" />
+							   :indeterminate="notification.progress === 0" :value="100" class="progress-bar" />
 			<v-progress-linear v-else-if="notification.progress !== null" :color="progressColor"
 							   :indeterminate="notification.progress === 0" :value="notification.progress" class="progress-bar" />
 
@@ -104,7 +69,7 @@
 				</v-btn>
 			</template>
 		</v-snackbar>
-	</v-fade-transition>
+	</div>
 </template>
 
 <script lang="ts">
@@ -200,34 +165,7 @@ export default Vue.extend({
 			if (to !== null) {
 				this.whenShown = new Date();
 				if (to.timeout !== null && to.timeout > 0) {
-					// Reset animations if needed
-					for (const animation of document.getAnimations()) {
-						if (animation instanceof CSSAnimation && ["animate-progress", "animate-progress-bg"].includes(animation.animationName)) {
-							animation.cancel();
-							animation.play();
-						}
-					}
-
-					// Set CSS animation properties when the notification has been rendered
-					this.$nextTick(() => {
-						if (this.$refs.progressBar) {
-							// Apply custom CSS animation duration to progress bar
-							const progressDiv = (this.$refs.progressBar as Vue).$el.querySelector(".v-progress-linear__determinate") as HTMLDivElement | undefined;
-							if (progressDiv) {
-								progressDiv.style["animationDelay"] = `${-to.timeDisplayed}ms`;
-								progressDiv.style["animationDuration"] = `${to.timeout}ms`;
-							}
-
-							// Apply custom CSS animation duration to progress bar background
-							const progressBgDiv = (this.$refs.progressBar as Vue).$el.querySelector(".v-progress-linear__background") as HTMLDivElement | undefined;
-							if (progressBgDiv) {
-								progressBgDiv.style["animationDelay"] = `${-to.timeDisplayed}ms`;
-								progressBgDiv.style["animationDuration"] = `${to.timeout}ms`;
-							}
-						}
-					});
-
-					// Close the notification automatically when the timeout expires 
+					// Close the notification automatically when the timeout expires
 					this.autoCloseTimer = setInterval(this.close, Math.max(to.timeout - to.timeDisplayed, 0));
 				}
 			}

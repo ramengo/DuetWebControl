@@ -153,6 +153,14 @@
 	opacity: 0.85;
 	font-variant-numeric: tabular-nums;
 }
+.encoder-sensor-switch {
+	margin-top: 4px !important;
+	padding-top: 0 !important;
+}
+.encoder-sensor-switch ::v-deep .v-label {
+	font-size: 0.72rem;
+	opacity: 0.75;
+}
 .speed-container {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
@@ -417,6 +425,14 @@
 									{{ loadedFilament(fm.index) }}
 								</span>
 							</div>
+							<v-switch
+								:input-value="fm.enabled"
+								:label="$t('panel.status.filamentSensor')"
+								dense
+								hide-details
+								class="encoder-sensor-switch"
+								@change="toggleFilamentSensor(fm.index, $event)"
+							/>
 						</div>
 					</div>
 				</v-tab-item>
@@ -507,14 +523,15 @@ export default Vue.extend({
 		speedsAvailable(): boolean { return isFinite(this.model.move.currentMove.requestedSpeed); },
 		topSpeedAvailable(): boolean { return isFinite(this.model.move.currentMove.topSpeed); },
 		extrusionAvailable(): boolean { return isFinite(this.model.move.currentMove.extrusionRate); },
-		activeFilamentMonitors(): Array<{ index: number; position: number; lastPercentage: number | null }> {
+		activeFilamentMonitors(): Array<{ index: number; position: number; lastPercentage: number | null; enabled: boolean }> {
 			return this.model.sensors.filamentMonitors
 				.map((m, i) => ({ m, i }))
 				.filter(({ m }) => m !== null && isFinite((m as any).position))
 				.map(({ m, i }) => ({
 					index: i,
 					position: (m as any).position as number,
-					lastPercentage: (m as any).lastPercentage as number | null
+					lastPercentage: (m as any).lastPercentage as number | null,
+					enabled: (m as any).enabled as boolean
 				}));
 		},
 		hasSpeedOrEncoderData(): boolean {
@@ -620,6 +637,9 @@ export default Vue.extend({
 			const extruder = this.model.move.extruders[index];
 			if (!extruder) return '—';
 			return extruder.filament || '—';
+		},
+		async toggleFilamentSensor(index: number, enabled: boolean): Promise<void> {
+			await store.dispatch("machine/sendCode", `M591 D${index} S${enabled ? 1 : 0}`);
 		}
 	}
 });

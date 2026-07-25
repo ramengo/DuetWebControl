@@ -52,7 +52,6 @@
     background-color: transparent !important;
     max-height: 65vh;
     overflow-y: auto;
-    transition: background-color 0.3s;
     text-align: center !important;
 }
 
@@ -118,7 +117,6 @@
     margin: 0 !important;
     padding: 0 24px !important;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.15) !important;
-    transition: all 0.3s ease !important;
 }
 
 .m291-touch .v-card__actions:not(.msg-actions-row2) .v-btn:hover {

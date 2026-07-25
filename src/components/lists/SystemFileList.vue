@@ -46,7 +46,7 @@
 			</template>
 		</base-file-list>
 
-		<v-speed-dial v-model="fab" bottom right fixed direction="top" transition="scale-transition"
+		<v-speed-dial v-model="fab" bottom right fixed direction="top" transition=""
 					  class="hidden-md-and-up">
 			<template #activator>
 				<v-btn v-model="fab" dark color="primary" fab>
