@@ -35,7 +35,10 @@
       "Bash(rm -rf /tmp/dwc-build-sync-check)",
       "Bash(timeout 280 npx vue-cli-service build --mode production --no-clean --dest /tmp/dwc-build-sync-check)",
       "Bash(rm -rf /tmp/dwc-build-hide-status)",
-      "Bash(timeout 280 npx vue-cli-service build --mode production --no-clean --dest /tmp/dwc-build-hide-status)"
+      "Bash(timeout 280 npx vue-cli-service build --mode production --no-clean --dest /tmp/dwc-build-hide-status)",
+      "Bash(node_modules/.bin/vue-tsc --noEmit)",
+      "Bash(timeout 180 npx vue-cli-service build --mode development)",
+      "Bash(git -C /home/pi/DuetWebControl status --short)"
     ]
   }
 }

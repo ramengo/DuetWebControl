@@ -23,7 +23,7 @@
 		</v-toolbar>
 
 		<base-file-list ref="filelist" v-model="selection" :directory.sync="directory" :loading.sync="loading"
-						sort-table="macros" @fileClicked="fileClicked" no-files-text="list.macro.noMacros">
+						sort-table="macros" :hidden-extensions="['.md']" @fileClicked="fileClicked" no-files-text="list.macro.noMacros">
 			<template #context-menu>
 				<v-list-item v-show="isFile" @click="runFile(selection[0].name)">
 					<v-icon class="mr-1">mdi-play</v-icon>

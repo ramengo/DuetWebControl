@@ -27,7 +27,7 @@
 		</v-toolbar>
 
 		<base-file-list ref="filelist" v-model="selection" :directory.sync="directory" :loading.sync="loading"
-						sort-table="sys" @fileClicked="fileClicked" @fileEdited="fileEdited" :noFilesText="noFilesText">
+						sort-table="sys" :hidden-extensions="['.md']" @fileClicked="fileClicked" @fileEdited="fileEdited" :noFilesText="noFilesText">
 			<template #context-menu>
 				<v-list-item v-show="isFirmwareFile" @click="installFile">
 					<v-icon class="mr-1">mdi-update</v-icon> {{ $t("list.firmware.installFile") }}

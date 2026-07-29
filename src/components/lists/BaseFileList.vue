@@ -205,7 +205,11 @@ export default VDataTable.extend({
 			default: ""
 		},
 		noRename: Boolean,
-		noDelete: Boolean
+		noDelete: Boolean,
+		hiddenExtensions: {
+			type: Array as PropType<Array<string>>,
+			default: () => []
+		}
 	},
 	computed: {
 		isConnected(): boolean { return store.getters["isConnected"]; },
@@ -376,7 +380,12 @@ export default VDataTable.extend({
 			this.innerLoading = true;
 			this.innerFilelistLoaded = false;
 			try {
-				const files: Array<BaseFileListItem> = await store.dispatch("machine/getFileList", directory);
+				let files: Array<BaseFileListItem> = await store.dispatch("machine/getFileList", directory);
+
+				// Filter out files with hidden extensions (e.g. .md docs that should not be edited from the UI)
+				if (this.hiddenExtensions.length) {
+					files = files.filter(file => file.isDirectory || !this.hiddenExtensions.some(ext => file.name.toLowerCase().endsWith(ext.toLowerCase())));
+				}
 
 				// Create missing props if required
 				if (this.headers) {

@@ -97,7 +97,8 @@ export default Vue.extend({
 
 			this.loading = true;
 			try {
-				const files: Array<MacroItem> = await store.dispatch("machine/getFileList", directory);
+				const files: Array<MacroItem> = (await store.dispatch("machine/getFileList", directory))
+					.filter((file: MacroItem) => file.isDirectory || !file.name.toLowerCase().endsWith(".md"));
 				files.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
 				files.sort((a, b) => (a.isDirectory === b.isDirectory) ? 0 : (a.isDirectory ? -1 : 1));
 				for (const item of files) {

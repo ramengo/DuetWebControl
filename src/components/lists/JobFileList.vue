@@ -29,6 +29,7 @@
 
 		<base-file-list ref="filelist" v-model="selection" :headers="headers" :directory.sync="directory"
 						:filelist.sync="filelist" :loading.sync="loading" sort-table="jobs"
+						:hidden-extensions="['.md']"
 						@directoryLoaded="directoryLoaded" @fileClicked="fileClicked" no-files-text="list.jobs.noJobs">
 			<v-progress-linear slot="progress" :indeterminate="fileinfoProgress === -1"
 							   :value="(fileinfoProgress / filelist.length) * 100" />
